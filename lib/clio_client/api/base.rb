@@ -7,8 +7,14 @@ module ClioClient
 
       attr_accessor :access_token
 
+      attr_writer :activities
+
       def initialize(credentials = {})
         self.access_token = credentials[:access_token]
+      end
+
+      def activities
+        @activities ||= ClioClient::Api::Activity.new(self)
       end
 
     end
