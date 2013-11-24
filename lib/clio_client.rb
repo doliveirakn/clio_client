@@ -1,5 +1,6 @@
 require "clio_client/version"
+require "clio_client/api/base"
+require 'addressable/uri'
 
 module ClioClient
-  # Your code goes here...
 end
