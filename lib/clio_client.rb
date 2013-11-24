@@ -1,6 +1,7 @@
+Dir[File.dirname(__FILE__) + "/clio_client/api/*.rb"].each {|file| require file }
 require "clio_client/version"
-require "clio_client/api/base"
-require 'addressable/uri'
+require 'net/http'
+require 'json'
 
 module ClioClient
 end
