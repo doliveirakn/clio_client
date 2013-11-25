@@ -6,6 +6,8 @@ module ClioClient
   autoload :Record, 'clio_client/record'
 
   autoload :Activity,            'clio_client/activity'
+  autoload :TimeEntry,           'clio_client/time_entry'
+  autoload :ExpenseEntry,        'clio_client/expense_entry'
   autoload :User,                'clio_client/user'
   autoload :ActivityDescription, 'clio_client/activity_description'
   autoload :Communication,        'clio_client/communication'

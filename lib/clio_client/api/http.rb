@@ -6,15 +6,15 @@ module ClioClient
   
     module Http
 
-      def base_uri(path, query_values = {})
+      def base_uri(path, params = {})
         uri = URI.parse("https://app.goclio.com")
         uri.path = path
-        uri.query = URI.encode_www_form(query_values) if query_values.any?
+        uri.query = URI.encode_www_form(params) if params.any?
         uri
       end
 
-      def get(path, parse=true)
-        uri = base_uri("#{api_prefix}/#{path}")
+      def get(path, params ={}, parse=true)
+        uri = base_uri("#{api_prefix}/#{path}", params)
         req = Net::HTTP::Get.new(uri.to_s)
         make_api_request(req, uri)
       end
