@@ -1,4 +1,3 @@
-Dir[File.dirname(__FILE__) + "/clio_client/api/*.rb"].each {|file| require file }
 require 'net/http'
 require 'json'
 
