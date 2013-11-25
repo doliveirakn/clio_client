@@ -15,6 +15,9 @@ module ClioClient
 
   module Api
     autoload :Activity,          'clio_client/api/activity'
+    autoload :Crud,              'clio_client/api/crud'
+    autoload :TimeEntry,         'clio_client/api/time_entry'
+    autoload :ExpenseEntry,      'clio_client/api/expense_entry'
     autoload :Base,              'clio_client/api/base'
 
   end
