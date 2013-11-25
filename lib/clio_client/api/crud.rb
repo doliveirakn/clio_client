@@ -2,11 +2,7 @@ module ClioClient
   module Api
     module Crud
 
-      def included(base)
-        base.class_eval {
-          attr_accessor :api
-        }
-      end
+      def api=(api); @api = api; end
 
       def initialize(api)
         self.api = api

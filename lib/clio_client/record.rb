@@ -1,19 +1,20 @@
 module ClioClient
 
   class RecordNotSaved < Exception; end
-  class AttributeReadOnly < Excpetion; end
+  class AttributeReadOnly < Exception; end
 
   class Record
 
     attr_accessor :end_point
+    @@attributes = nil
 
     def self.attributes(attrs)
-      raise "Attributes already set" if @@attributes
+      raise "Attributes already set" unless @@attributes.nil?
       @@attributes = attrs
       attrs.each_pair do |name, options|
         attr_reader name
         if options[:readonly]
-          defined_method "#{name}=" do |value|
+          define_method "#{name}=" do |value|
             if send(name).nil?
               instance_variable_set("@#{name}", value)
             else

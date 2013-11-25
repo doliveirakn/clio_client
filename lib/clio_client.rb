@@ -13,11 +13,15 @@ module ClioClient
   autoload :Matter,              'clio_client/matter'
 
   module Api
+    autoload :Base,              'clio_client/api/base'
+    autoload :Http,              'clio_client/api/http'
+    autoload :Authorization,     'clio_client/api/authorization'
+
     autoload :Activity,          'clio_client/api/activity'
     autoload :Crud,              'clio_client/api/crud'
     autoload :TimeEntry,         'clio_client/api/time_entry'
     autoload :ExpenseEntry,      'clio_client/api/expense_entry'
-    autoload :Base,              'clio_client/api/base'
+
 
   end
 
