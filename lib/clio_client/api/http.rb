@@ -1,8 +1,9 @@
 module ClioClient
   module Api
 
-    class Unauthorized < Exception; end
-   
+    class Unauthorized < Exception; end 
+    class RecordNotFound < Exception; end
+  
     module Http
 
       def base_uri(path, query_values = {})
@@ -18,6 +19,34 @@ module ClioClient
         make_api_request(req, uri)
       end
 
+      def put(path, body = "", parse=true)
+        uri = base_uri("#{api_prefix}/#{path}")        
+        req = Net::HTTP::Put.new(uri.request_uri)
+        req.body = body
+        req.add_field("Content-Type", "application/json")
+        make_api_request(req, uri, parse)
+      end
+
+      def multipart_post(path, params, parse = true)
+        uri = base_uri("#{api_prefix}/#{path}")        
+        req = Net::HTTP::Post::Multipart.new(uri.request_uri, params)
+        make_api_request(req, uri, parse)
+      end
+
+      def post(path, body ="", parse = true)
+        uri = base_uri("#{api_prefix}/#{path}")        
+        req = Net::HTTP::Post.new(uri.request_uri)
+        req.body = body
+        req.add_field("Content-Type", "application/json")
+        make_api_request(req, uri, parse)
+      end
+
+      def delete(path, parse=true)
+        uri = base_uri("#{api_prefix}/#{path}")
+        req = Net::HTTP::Delete.new(uri.request_uri)
+        make_api_request(req, uri, parse)
+      end
+
       def make_api_request(req, uri, parse = true)
         return nil if self.access_token.nil? || self.access_token.empty?
         req.add_field("Authorization", "Bearer #{self.access_token}")
@@ -31,7 +60,13 @@ module ClioClient
         res = n.start do |http|
           http.request(req)
         end
+        parse_response(res, parse)
+      end
+
+      def parse_response(res, parse)
         case res
+        when Net::HTTPNotFound
+          raise ClioClient::Api::ResourceNotFound
         when Net::HTTPSuccess
           parse ? JSON.parse(res.body) : res.body
         when Net::HTTPUnauthorized
