@@ -18,7 +18,10 @@ module ClioClient
     autoload :Authorization,     'clio_client/api/authorization'
 
     autoload :Activity,          'clio_client/api/activity'
-    autoload :Crud,              'clio_client/api/crud'
+
+    autoload :Crudable,          'clio_client/api/crudable'
+    autoload :Findable,          'clio_client/api/findable'
+    autoload :Listable,          'clio_client/api/listable'
 
 
   end

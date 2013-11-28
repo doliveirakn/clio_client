@@ -2,8 +2,14 @@ module ClioClient
   module Api
     class Activity
 
-      include ClioClient::Api::Crud
+      include ClioClient::Api::Crudable
+      include ClioClient::Api::Listable
+      include ClioClient::Api::Findable
 
+      attr_accessor :api
+      def initialize(api)
+        self.api = api
+      end
 
 
       private
