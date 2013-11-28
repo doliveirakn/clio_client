@@ -2,7 +2,7 @@ module ClioClient
 
   class RecordNotSaved < Exception; end
   class AttributeReadOnly < Exception; end
-
+  class ApiUnavilableForNestedAttribute < Exception; end
   class Record
 
     attr_accessor :end_point
@@ -30,8 +30,10 @@ module ClioClient
     end
       
     def self.has_association(name, klass)
+      attr_accessor "#{name}_id"
       attr_reader name
       define_method "#{name}=" do |attributes|
+        instance_variable_set("@#{name}_id", attributes["id"])
         instance_variable_set("@#{name}", klass.new(nil, attributes))
       end      
     end
@@ -48,6 +50,7 @@ module ClioClient
     end
 
     def save
+      raise ApiUnavilableForNestedAttribute if end_point.nil?
       if self.id.nil?
         end_point.create(self.to_params)
       else
@@ -56,11 +59,13 @@ module ClioClient
     end
 
     def reload
+      raise ApiUnavilableForNestedAttribute if end_point.nil?
       raise RecordNotSaved if self.id.nil?
       end_point.find(self.id)
     end
 
     def destroy
+      raise ApiUnavilableForNestedAttribute if end_point.nil?
       raise RecordNotSaved if self.id.nil?
       end_point.destroy(self.id)
     end
