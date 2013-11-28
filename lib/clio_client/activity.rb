@@ -20,6 +20,11 @@ module ClioClient
     has_association :matter,               ClioClient::Matter
     has_association :activity_description, ClioClient::ActivityDescription
     has_association :communication,        ClioClient::Communication
+
+    private
+    def api
+      session.activities
+    end
     
   end
 

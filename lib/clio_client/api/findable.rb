@@ -3,7 +3,7 @@ module ClioClient
     module Findable
       
       def find(id)
-        response = api.get("#{end_point_url}/#{id}")
+        response = session.get("#{end_point_url}/#{id}")
         data_item(response[singular_resource])
       end
 

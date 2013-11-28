@@ -2,6 +2,7 @@ module ClioClient
 
   class Session
 
+    include Api::Http
     include Api::Authorization
 
     attr_accessor :access_token
@@ -10,9 +11,8 @@ module ClioClient
       self.access_token = credentials[:access_token]
     end
 
-    attr_writer :activities
     def activities
-      @activities ||= ClioClient::Api::Activity.new
+      @activities ||= ClioClient::Api::Activity.new(self)
     end
 
 

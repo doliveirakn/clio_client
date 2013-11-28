@@ -6,18 +6,12 @@ module ClioClient
       include ClioClient::Api::Listable
       include ClioClient::Api::Findable
 
-      attr_accessor :api
-      def initialize(api)
-        self.api = api
-      end
-
-
       private
       def data_item(params)
         if params['type'] == 'TimeEntry'
-          ClioClient::TimeEntry.new(self, params)
+          ClioClient::TimeEntry.new(session, params)
         elsif params['type'] == 'ExpenseEntry'
-          ClioClient::ExpenseEntry.new(self, params)
+          ClioClient::ExpenseEntry.new(session, params)
         end
       end
 

@@ -2,10 +2,10 @@ module ClioClient
 
   class RecordNotSaved < Exception; end
   class AttributeReadOnly < Exception; end
-  class ApiUnavilableForNestedAttribute < Exception; end
+
   class Record
 
-    attr_accessor :end_point
+    attr_accessor :session
 
     class << self
 
@@ -42,32 +42,29 @@ module ClioClient
       self.send(val)
     end
 
-    def initialize(end_point, values = {})
-      self.end_point = end_point
+    def initialize(session, values = {})
+      self.session = session
       values.each_pair do |k, v|
         self.send("#{k}=", v) if respond_to?("#{k}=") && !v.nil?
       end
     end
 
     def save
-      raise ApiUnavilableForNestedAttribute if end_point.nil?
       if self.id.nil?
-        end_point.create(self.to_params)
+        api.create(self.to_params)
       else
-        end_point.update(self.id, self.to_params)
+        api.update(self.id, self.to_params)
       end
     end
 
     def reload
-      raise ApiUnavilableForNestedAttribute if end_point.nil?
       raise RecordNotSaved if self.id.nil?
-      end_point.find(self.id)
+      api.find(self.id)
     end
 
     def destroy
-      raise ApiUnavilableForNestedAttribute if end_point.nil?
       raise RecordNotSaved if self.id.nil?
-      end_point.destroy(self.id)
+      api.destroy(self.id)
     end
 
     def to_params
@@ -77,6 +74,10 @@ module ClioClient
     end
 
     private
+    def api
+      raise NotImplementedError
+    end
+
     def convert_attribute(val, options)
       case options[:type]
       when :int then val.to_i
