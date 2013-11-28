@@ -3,9 +3,10 @@ module ClioClient
     module Crud
 
       def api=(api); @api = api; end
+      def api; @api; end
 
       def initialize(api)
-        self.api = api
+        @api = api
       end
 
       def list(params = {})
@@ -13,7 +14,7 @@ module ClioClient
         response[plural_resource].collect{ |r| data_item.new(self, r) }
       end
 
-      def get(id)
+      def find(id)
         response = api.get("#{end_point}/#{id}")
         data_item.new(self, response[singular_resource])
       end
@@ -32,7 +33,7 @@ module ClioClient
         data_item.new(self, response[singular_resource])        
       end
 
-      def delete(id)
+      def destroy(id)
         api.delete("#{end_point}/#{id}", false)
       end
 

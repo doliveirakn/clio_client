@@ -6,33 +6,38 @@ module ClioClient
   class Record
 
     attr_accessor :end_point
-    @@attributes = nil
 
-    def self.attributes(attrs)
-      raise "Attributes already set" unless @@attributes.nil?
-      @@attributes = attrs
-      attrs.each_pair do |name, options|
-        attr_reader name
-        if options[:readonly]
+    class << self
+
+      attr_accessor :attributes
+      def set_attributes(attrs)
+        self.attributes = attrs
+        attrs.each_pair do |name, options|
+          attr_reader name
           define_method "#{name}=" do |value|
-            if send(name).nil?
-              instance_variable_set("@#{name}", value)
-            else
-              raise AttributeReadOnly
-            end
+            raise AttributeReadOnly if !send(name).nil? && options[:readonly]
+            instance_variable_set("@#{name}", convert_attribute(value, options))
           end
-        else
-          attr_writer name
         end
       end
+      
+      def inherited(subclass)
+        if !self.attributes.nil?
+          subclass.set_attributes(self.attributes)
+        end
+      end
+
     end
-    
+      
     def self.has_association(name, klass)
       attr_reader name
       define_method "#{name}=" do |attributes|
         instance_variable_set("@#{name}", klass.new(attributes))
-      end
-      
+      end      
+    end
+
+    def [](val)
+      self.send(val)
     end
 
     def initialize(end_point, values = {})
@@ -46,18 +51,36 @@ module ClioClient
       if self.id.nil?
         end_point.create(self.to_params)
       else
-        end_point.update(self.to_params)
+        end_point.update(self.id, self.to_params)
       end
     end
 
     def reload
       raise RecordNotSaved if self.id.nil?
-      end_point.get(self.id)
+      end_point.find(self.id)
     end
 
     def destroy
       raise RecordNotSaved if self.id.nil?
-      end_point.delete(self.id)
+      end_point.destroy(self.id)
+    end
+
+    def to_params
+      self.class.attributes.inject({}) do |h, (attr, opts)|
+        self[attr] ? h.merge(attr => self[attr].to_s) : h
+      end
+    end
+
+    private
+    def convert_attribute(val, options)
+      case options[:type]
+      when :int then val.to_i
+      when :string then val.to_s
+      when :date then Date.parse(val)
+      when :decimal then val.to_f
+      when :boolean then !!val
+      when :datetime then DateTime.parse(val)
+      end
     end
 
   end
