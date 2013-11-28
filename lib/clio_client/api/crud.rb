@@ -10,34 +10,32 @@ module ClioClient
       end
 
       def list(params = {})
-        response = api.get(end_point, params)
-        response[plural_resource].collect{ |r| data_item.new(self, r) }
+        response = api.get(end_point_url, params)
+        response[plural_resource].collect{ |r| data_item(r) }
       end
 
       def find(id)
-        response = api.get("#{end_point}/#{id}")
-        data_item.new(self, response[singular_resource])
+        response = api.get("#{end_point_url}/#{id}")
+        data_item(response[singular_resource])
       end
 
       def new(params = {})
-        data_item.new(self, params)
+        data_item(params)
       end
 
       def create(params = {})
-        response = api.post(end_point, {singular_resource => params}.to_json)
-        data_item.new(self, response[singular_resource])        
+        response = api.post(end_point_url, {singular_resource => params}.to_json)
+        data_item( response[singular_resource])        
       end
 
       def update(id, params = {})
-        response = api.put("#{end_point}/#{id}", {singular_resource => params}.to_json)
-        data_item.new(self, response[singular_resource])        
+        response = api.put("#{end_point_url}/#{id}", {singular_resource => params}.to_json)
+        data_item(response[singular_resource])        
       end
 
       def destroy(id)
-        api.delete("#{end_point}/#{id}", false)
+        api.delete("#{end_point_url}/#{id}", false)
       end
-
-
 
     end
   end

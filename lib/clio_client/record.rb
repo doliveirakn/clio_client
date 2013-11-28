@@ -32,7 +32,7 @@ module ClioClient
     def self.has_association(name, klass)
       attr_reader name
       define_method "#{name}=" do |attributes|
-        instance_variable_set("@#{name}", klass.new(attributes))
+        instance_variable_set("@#{name}", klass.new(nil, attributes))
       end      
     end
 

@@ -7,18 +7,14 @@ module ClioClient
 
       attr_accessor :access_token
 
-      attr_writer :time_entries, :expense_entries
+      attr_writer :activities
 
       def initialize(credentials = {})
         self.access_token = credentials[:access_token]
       end
 
-      def time_entries
-        @activities ||= ClioClient::Api::TimeEntry.new(self)
-      end
-
-      def expense_entries
-        @activities ||= ClioClient::Api::ExpenseEntry.new(self)
+      def activities
+        @activities ||= ClioClient::Api::Activity.new(self)
       end
 
     end
