@@ -8,7 +8,7 @@ module ClioClient
 
       def create(params = {})
         response = session.post(end_point_url, {singular_resource => params}.to_json)
-        data_item( response[singular_resource])        
+        data_item(response[singular_resource])        
       end
 
       def update(id, params = {})

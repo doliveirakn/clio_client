@@ -1,0 +1,2 @@
+class InheritedRecord < TestRecord
+end

@@ -1,7 +1,6 @@
 module ClioClient
 
   class RecordNotSaved < Exception; end
-  class AttributeReadOnly < Exception; end
 
   class Record
 
@@ -14,9 +13,10 @@ module ClioClient
         self.attributes = attrs
         attrs.each_pair do |name, options|
           attr_reader name
-          define_method "#{name}=" do |value|
-            raise AttributeReadOnly if !send(name).nil? && options[:readonly]
-            instance_variable_set("@#{name}", convert_attribute(value, options))
+          unless options[:readonly]
+            define_method "#{name}=" do |value|
+              instance_variable_set("@#{name}", convert_attribute(value, options))
+            end
           end
         end
       end
