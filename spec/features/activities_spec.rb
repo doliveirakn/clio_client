@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ClioClient::Api::Activity do
+describe ClioClient::Api::Activity, :external => true do
 
   let(:session) { ClioClient::Session.new(:access_token => ENV['ACCESS_TOKEN']) }
   let(:api) { session.activities }

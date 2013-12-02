@@ -4,19 +4,20 @@ require 'json'
 module ClioClient
   autoload :Session,             'clio_client/session'
   autoload :Record,              'clio_client/record'
+  autoload :Http,                'clio_client/http'
+  autoload :Authorization,       'clio_client/authorization'
 
-  autoload :Activity,            'clio_client/activity'
-  autoload :TimeEntry,           'clio_client/time_entry'
-  autoload :ExpenseEntry,        'clio_client/expense_entry'
-  autoload :User,                'clio_client/user'
-  autoload :ActivityDescription, 'clio_client/activity_description'
-  autoload :Communication,       'clio_client/communication'
-  autoload :Matter,              'clio_client/matter'
+  # Models
+  autoload :Activity,            'clio_client/models/activity'
+  autoload :ActivityDescription, 'clio_client/models/activity_description'
+  autoload :Communication,       'clio_client/models/communication'
+  autoload :ExpenseEntry,        'clio_client/models/expense_entry'
+  autoload :Matter,              'clio_client/models/matter'
+  autoload :TimeEntry,           'clio_client/models/time_entry'
+  autoload :User,                'clio_client/models/user'
 
   module Api
     autoload :Base,              'clio_client/api/base'
-    autoload :Http,              'clio_client/api/http'
-    autoload :Authorization,     'clio_client/api/authorization'
 
     autoload :Activity,          'clio_client/api/activity'
 

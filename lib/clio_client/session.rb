@@ -2,8 +2,8 @@ module ClioClient
 
   class Session
 
-    include Api::Http
-    include Api::Authorization
+    include Http
+    include Authorization
 
     attr_accessor :access_token
 
