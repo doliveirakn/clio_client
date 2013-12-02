@@ -66,7 +66,7 @@ module ClioClient
       def parse_response(res, parse)
         case res
         when Net::HTTPNotFound
-          raise ClioClient::Api::ResourceNotFound
+          raise ClioClient::Api::RecordNotFound
         when Net::HTTPSuccess
           parse ? JSON.parse(res.body) : res.body
         when Net::HTTPUnauthorized

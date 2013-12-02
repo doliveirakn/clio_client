@@ -1,6 +1,6 @@
 module ClioClient
   module Api
-    class Activity
+    class Activity < Base
 
       include ClioClient::Api::Crudable
       include ClioClient::Api::Listable
