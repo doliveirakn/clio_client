@@ -2,7 +2,7 @@ class DummyEndpoint < ClioClient::Api::Base
   include ClioClient::Api::Findable
 
   def data_item(params)
-    TestRecord.new(session, params)
+    TestResource.new(session, params)
   end
   
   def singular_resource; 'dummy'; end

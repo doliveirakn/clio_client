@@ -27,7 +27,7 @@ describe ClioClient::Api::Activity, :external => true do
 
     api.destroy(item.id)
     
-    expect{api.find(item.id)}.to raise_error ClioClient::Api::RecordNotFound
+    expect{api.find(item.id)}.to raise_error ClioClient::ResourceNotFound
   end
 
   

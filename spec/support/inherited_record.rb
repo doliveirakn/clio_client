@@ -1,2 +1,0 @@
-class InheritedRecord < TestRecord
-end

@@ -17,7 +17,7 @@ describe ClioClient::Api::Listable do
       session.stub(:get).and_return(response)
       records = subject.list
       expect(records.count).to eql 2
-      expect(records.first).to be_kind_of TestRecord
+      expect(records.first).to be_kind_of TestResource
       expect(records.first.id).to eql 1
       expect(records.last.id).to eql 2
     end

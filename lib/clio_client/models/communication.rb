@@ -1,6 +1,6 @@
 module ClioClient
   
-  class Communication < Record
+  class Communication < Resource
 
     set_attributes(id:          {type: :int, readonly: true},
                    type:        {type: :string, readonly: true},

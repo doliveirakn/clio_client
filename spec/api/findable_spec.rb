@@ -16,7 +16,7 @@ describe ClioClient::Api::Findable do
     it "should return the correct data item" do
       session.stub(:get).and_return(response)
       dummy = subject.find(1)
-      expect(dummy).to be_kind_of TestRecord
+      expect(dummy).to be_kind_of TestResource
       expect(dummy.id).to eql 1
     end
 

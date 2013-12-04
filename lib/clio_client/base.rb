@@ -1,11 +1,5 @@
 module ClioClient
-
-  class RecordNotSaved < Exception; end
-  class AttributeReadOnly < Exception; end
-
-  class Record
-
-    attr_accessor :session
+  class Base
 
     class << self
 
@@ -29,59 +23,22 @@ module ClioClient
         end
       end
 
-      def has_association(name, klass)
-        attr_accessor "#{name}_id"
-        attr_reader name
-        define_method "#{name}=" do |attributes|
-          instance_variable_set("@#{name}_id", attributes["id"])
-          instance_variable_set("@#{name}", klass.new(nil, attributes))
-        end      
-      end
     end
-      
-    def ==(o)
-      self.class == o.class && !self.id.nil? && self.id != "" && self.id == o.id
-    end
-    alias_method :eql?, :==
 
     def [](val)
       self.send(val)
     end
 
-    def initialize(session, values = {})
-      self.session = session
+    def initialize(values = {})
       values.each_pair do |k, v|
         self.send("#{k}=", v) if respond_to?("#{k}=") && !v.nil?
       end
-    end
-
-    def save
-      if self.id.nil?
-        api.create(self.to_params)
-      else
-        api.update(self.id, self.to_params)
-      end
-    end
-
-    def reload
-      raise RecordNotSaved if self.id.nil?
-      api.find(self.id)
-    end
-
-    def destroy
-      raise RecordNotSaved if self.id.nil?
-      api.destroy(self.id)
     end
 
     def to_params
       self.class.attributes.inject({}) do |h, (attr, opts)|
         self[attr] ? h.merge(attr => self[attr].to_s) : h
       end
-    end
-
-    private
-    def api
-      raise NotImplementedError
     end
 
     def convert_attribute(val, options)
@@ -92,6 +49,8 @@ module ClioClient
       when :decimal then val.to_f
       when :boolean then !!val
       when :datetime then DateTime.parse(val)
+      when :array then Array(val)
+      else val
       end
     end
 

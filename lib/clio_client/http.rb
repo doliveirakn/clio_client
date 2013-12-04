@@ -1,7 +1,7 @@
 module ClioClient
 
   class Unauthorized < Exception; end 
-  class RecordNotFound < Exception; end
+  class ResourceNotFound < Exception; end
   
   module Http
 
@@ -65,7 +65,7 @@ module ClioClient
     def parse_response(res, parse)
       case res
       when Net::HTTPNotFound
-        raise ClioClient::RecordNotFound
+        raise ClioClient::ResourceNotFound
       when Net::HTTPSuccess
         parse ? JSON.parse(res.body) : res.body
       when Net::HTTPUnauthorized

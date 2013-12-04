@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe ClioClient::Record do
+describe ClioClient::Resource do
 
-  subject { TestRecord.new(session, params) }
+  subject { TestResource.new(session, params) }
   let(:params) { {id: 1} }
   let(:session) { double("ClioClient::Session") }
   let(:api) { double("ClioClient::Api::Base") }
@@ -55,7 +55,7 @@ describe ClioClient::Record do
   describe ".attributes" do
     context "for an inherited record" do
       it "is the same as the parent class" do
-        expect(InheritedRecord.attributes).to eql TestRecord.attributes
+        expect(InheritedResource.attributes).to eql TestResource.attributes
       end
     end
   end
@@ -84,7 +84,7 @@ describe ClioClient::Record do
     context "when the record is not saved" do
       let(:params) { {} }
       it "raises an exception" do
-        expect{subject.reload}.to raise_error ClioClient::RecordNotSaved
+        expect{subject.reload}.to raise_error ClioClient::ResourceNotSaved
       end
     end
     context "when the record is saved" do
@@ -101,7 +101,7 @@ describe ClioClient::Record do
     context "when the record is not saved" do
       let(:params) { {} }
       it "raises an exception" do
-        expect{subject.destroy}.to raise_error ClioClient::RecordNotSaved
+        expect{subject.destroy}.to raise_error ClioClient::ResourceNotSaved
       end
     end
     context "when the record is saved" do

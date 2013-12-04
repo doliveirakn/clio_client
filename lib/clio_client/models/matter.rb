@@ -1,6 +1,6 @@
 module ClioClient
 
-  class Matter < Record
+  class Matter < Resource
     
     set_attributes(id:                    {type: :int, readonly: true},
                    created_at:            {type: :datetime, readonly: true},

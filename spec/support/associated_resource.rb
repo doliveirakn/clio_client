@@ -1,4 +1,4 @@
-class AssociatedRecord < ClioClient::Record
+class AssociatedResource < ClioClient::Resource
 
   set_attributes(id: {type: :int}
                  )

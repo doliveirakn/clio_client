@@ -1,4 +1,4 @@
-class TestRecord < ClioClient::Record
+class TestResource < ClioClient::Resource
   
   set_attributes(id:       {type: :int},
                  int:      {type: :int},
