@@ -6,8 +6,8 @@ module ClioClient
                    name:                    {type: :string},
                    created_at:              {type: :datetime, readonly: true},
                    updated_at:              {type: :datetime, readonly: true},
-                   activity_rate_default:   {type: :hash}, 
-                   rates:                   {type: :array}
+                   activity_rate_default:   {type: :rate}, 
+                   rates:                   {type: :array, of: :rate}
                    )
 
   end

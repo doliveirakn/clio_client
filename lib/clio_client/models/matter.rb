@@ -19,6 +19,8 @@ module ClioClient
                    maildrop_address:      {type: :int, readonly: true},
                    )
 
+    alias_method :name, :display_number
+    alias_method :name=, :display_number=
 
   end
 

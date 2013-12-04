@@ -58,7 +58,9 @@ module ClioClient
       when :decimal then val.to_f
       when :boolean then !!val
       when :datetime then DateTime.parse(val)
-      when :array then Array(val)
+      when :array then 
+        Array(val).collect{|v| options[:of].try(:new, v) || v }
+      when :rate then ClioClient::Rate.new(val)
       else val
       end
     end

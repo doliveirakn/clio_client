@@ -14,6 +14,10 @@ module ClioClient
                    receivers:   {type: :array}                 
                    )
 
+    alias_method :name, :subject
+    alias_method :name=, :subject=
+
+
   end
 
 end
