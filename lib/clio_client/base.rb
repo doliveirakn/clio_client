@@ -37,7 +37,16 @@ module ClioClient
 
     def to_params
       self.class.attributes.inject({}) do |h, (attr, opts)|
-        self[attr] ? h.merge(attr => self[attr].to_s) : h
+        self[attr] ? h.merge(attr => paramify(self[attr])) : h
+      end
+    end
+    
+    private
+    def paramify(val)
+      if val.kind_of? ClioClient::Base
+        val.to_params
+      else
+        val.to_s
       end
     end
 

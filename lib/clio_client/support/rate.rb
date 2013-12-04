@@ -1,19 +1,12 @@
 module ClioClient
 
-  class Rate
+  class Rate < Base
 
-    attr_accessor :rate
-    attr_accessor :user_id
-    attr_accessor :source
-    attr_accessor :flat_rate
-
-    def to_params
-      {
-        rate: rate.to_f, user_id: user_id.to_i,
-        source: source.to_s, flat_rate: flat_rate
-      }
-    end
-
+    set_attributes(rate:      {type: :decimal  },
+                   user_id:   {type: :int      }, 
+                   source:    {type: :string   }, 
+                   flat_rate: {type: :boolean  } 
+                   )
 
   end
 
