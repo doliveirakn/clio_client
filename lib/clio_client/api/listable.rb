@@ -3,26 +3,34 @@ module ClioClient
 
     module Listable
       def list(params = {})
-        @last_query = params
-        @records = 0
         response = session.get(end_point_url, params)
-        @next_offset = response["next_offset"]
-        @records += response["records"]
-        @total_records = response["total_records"]
+        @pagination_details = {last_query: params, records: 0, next_offset: response["next_offset"], 
+          total_records: response["total_records"]
+        }
+        @pagination_details[:records] += response["records"]
         response[plural_resource].collect{ |r| data_item(r) }
-      end
-
-      def more_pages?
-        @records < @total_records
       end
       
       def next_page
-        params = @last_query.merge(:offset => @next_offset)
-        response = session.get(end_point_url, params)
-        @next_offset = response["next_offset"]
-        @records += response["records"]
-        response[plural_resource].collect{ |r| data_item(r) }        
+        if more_pages?
+          params = @pagination_details[:last_query].merge(:offset => @pagination_details[:next_offset])
+          response = session.get(end_point_url, params)
+          @pagination_details[:next_offset] = response["next_offset"]
+          @pagination_details[:records] += response["records"]
+          response[plural_resource].collect{ |r| data_item(r) }
+        else
+          @pagination_details = nil
+          []
+        end
       end
+
+      private
+      def more_pages?
+        if @pagination_details         
+          @pagination_details[:records] < @pagination_details[:total_records]
+        end
+      end
+
 
     end
 
