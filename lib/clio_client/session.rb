@@ -31,6 +31,10 @@ module ClioClient
       @calendars ||= ClioClient::Api::Calendar.new(self)
     end
 
+    def communications
+      @communications ||= ClioClient::Api::Communication.new(self)
+    end
+
   end
 
 end

@@ -51,7 +51,7 @@ module ClioClient
     def inspect
       attr_list = self.class.attributes.inject([]) do |a, (attr, opts)|
         if has_attribute?(attr)
-          a << "#{attr}: #{self[attr]}"
+          a << "#{attr}: #{self[attr].inspect}"
         else
           a
         end

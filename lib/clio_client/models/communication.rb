@@ -13,10 +13,15 @@ module ClioClient
                    senders:     {type: :array},
                    receivers:   {type: :array}                 
                    )
-
+    
     alias_method :name, :subject
     alias_method :name=, :subject=
-
+    
+    private
+    def api
+      session.communications
+    end
+      
 
   end
 
