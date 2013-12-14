@@ -44,9 +44,12 @@ module ClioClient
 
     def save
       if self.id.nil?
-        api.create(self.to_params)
+        saved_item = api.create(self.to_params)
+        self.id = saved_item.id
+        self
       else
         api.update(self.id, self.to_params)
+        self
       end
     end
 
