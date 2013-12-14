@@ -35,6 +35,7 @@ module ClioClient
     autoload :ActivityDescription,'clio_client/api/activity_description'
     autoload :Bill,               'clio_client/api/bill'
     autoload :CalendarEntry,      'clio_client/api/calendar_entry'
+    autoload :Calendar,           'clio_client/api/calendar'
 
     autoload :Crudable,          'clio_client/api/crudable'
     autoload :Findable,          'clio_client/api/findable'

@@ -9,9 +9,9 @@ module ClioClient
                    permission:               {type: :string,   readonly: true}
                    )
 
-    has_association      :matter,              ClioClient::Matter
-    has_association      :calendar,            ClioClient::Calendar
-    has_many_association :attending_calendars, ClioClient::Calendar
-
+    private
+    def api
+      session.calendars
+    end
   end
 end

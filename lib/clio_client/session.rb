@@ -27,6 +27,10 @@ module ClioClient
       @calendar_entries ||= ClioClient::Api::CalendarEntry.new(self)
     end
 
+    def calendars
+      @calendars ||= ClioClient::Api::Calendar.new(self)
+    end
+
   end
 
 end
