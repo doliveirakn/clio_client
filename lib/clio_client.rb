@@ -30,7 +30,8 @@ module ClioClient
   module Api
     autoload :Base,              'clio_client/api/base'
 
-    autoload :Activity,          'clio_client/api/activity'
+    autoload :Activity,           'clio_client/api/activity'
+    autoload :ActivityDescription,'clio_client/api/activity_description'
 
     autoload :Crudable,          'clio_client/api/crudable'
     autoload :Findable,          'clio_client/api/findable'

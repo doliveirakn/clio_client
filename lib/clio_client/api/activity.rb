@@ -7,11 +7,11 @@ module ClioClient
       include ClioClient::Api::Findable
 
       private
-      def data_item(params)
+      def data_klass(params)
         if params['type'] == 'TimeEntry'
-          ClioClient::TimeEntry.new(session, params)
+          ClioClient::TimeEntry
         elsif params['type'] == 'ExpenseEntry'
-          ClioClient::ExpenseEntry.new(session, params)
+          ClioClient::ExpenseEntry
         end
       end
 

@@ -15,6 +15,10 @@ module ClioClient
       @activities ||= ClioClient::Api::Activity.new(self)
     end
 
+    def activity_descriptions
+      @activities_descriptions ||= ClioClient::Api::ActivityDescription.new(self)
+    end
+
 
   end
 

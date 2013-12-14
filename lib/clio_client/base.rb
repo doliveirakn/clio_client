@@ -81,7 +81,7 @@ module ClioClient
       when :boolean then !!val
       when :datetime then DateTime.parse(val)
       when :array then 
-        Array(val).collect{|v| options[:of].try(:new, v) || v }
+        Array(val).collect { |v| convert_attribute(v, {:type => options[:of]}) }
       when :rate then ClioClient::Rate.new(val)
       when :foreign_key 
         (val == "" || val.nil?) ? nil : val.to_i
