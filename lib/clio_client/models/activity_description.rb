@@ -10,6 +10,11 @@ module ClioClient
                    rates:                   {type: :array, of: :rate}
                    )
 
+    private
+    def api
+      session.activity_descriptions
+    end
+
   end
 
 end

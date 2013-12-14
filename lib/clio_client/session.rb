@@ -19,6 +19,13 @@ module ClioClient
       @activities_descriptions ||= ClioClient::Api::ActivityDescription.new(self)
     end
 
+    def bills
+      @bills ||= ClioClient::Api::Bill.new(self)
+    end
+
+    def calendar_entries
+      @calendar_entries ||= ClioClient::Api::CalendarEntry.new(self)
+    end
 
   end
 

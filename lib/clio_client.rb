@@ -25,6 +25,7 @@ module ClioClient
 
   # Support classes
   autoload :Rate,                'clio_client/support/rate'
+  autoload :Reminder,            'clio_client/support/reminder'
 
 
   module Api
@@ -32,6 +33,8 @@ module ClioClient
 
     autoload :Activity,           'clio_client/api/activity'
     autoload :ActivityDescription,'clio_client/api/activity_description'
+    autoload :Bill,               'clio_client/api/bill'
+    autoload :CalendarEntry,      'clio_client/api/calendar_entry'
 
     autoload :Crudable,          'clio_client/api/crudable'
     autoload :Findable,          'clio_client/api/findable'

@@ -27,7 +27,18 @@ module ClioClient
                    )
 
     has_association      :client,            ClioClient::Contact
-    has_many_assocation  :matters,           ClioClient::Matter
+    has_many_association :matters,           ClioClient::Matter
+
+    def pdf
+      unless self.id.nil?
+        api.download(self.id)
+      end
+    end
+
+    private
+    def api
+      session.bills
+    end
 
   end
 end

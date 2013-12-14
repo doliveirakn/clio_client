@@ -64,9 +64,11 @@ module ClioClient
       instance_variable_defined?("@#{attr}")
     end
 
-    def paramify(val)
+    def paramify(val)      
       if val.kind_of? ClioClient::Base
         val.to_params
+      elsif val.kind_of? Array
+        val.collect{|v| paramify(v) }
       else
         val
       end
@@ -74,18 +76,28 @@ module ClioClient
 
     def convert_attribute(val, options)
       case options[:type]
-      when :int then val.to_i
-      when :string then val.to_s
-      when :date then Date.parse(val)
-      when :decimal then val.to_f
-      when :boolean then !!val
-      when :datetime then DateTime.parse(val)
-      when :array then 
+      when :int
+        val.to_i
+      when :string
+        val.to_s
+      when :date
+        val.kind_of?(Date) ? val : Date.parse(val)
+      when :decimal
+        val.to_f
+      when :boolean 
+        !!val
+      when :datetime 
+        val.kind_of?(DateTime) ? val : DateTime.parse(val)
+      when :array 
         Array(val).collect { |v| convert_attribute(v, {:type => options[:of]}) }
-      when :rate then ClioClient::Rate.new(val)
+      when :rate
+        ClioClient::Rate.new(val)
+      when :reminder
+        ClioClient::Reminder.new(val)
       when :foreign_key 
         (val == "" || val.nil?) ? nil : val.to_i
-      else val
+      else 
+        val
       end
     end
 

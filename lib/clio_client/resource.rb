@@ -21,6 +21,7 @@ module ClioClient
 
       def has_many_association(name, klass)
         attr_reader name
+        self.attributes[name.intern] = {type: :has_many_association}
         define_method "#{name}=" do |arr|
           many = arr.collect{|attributes| klass.new(session, attributes) } 
           instance_variable_set("@#{name}", many)
