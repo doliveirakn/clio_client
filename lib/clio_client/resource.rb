@@ -12,7 +12,7 @@ module ClioClient
       def has_association(name, klass)
         attr_accessor "#{name}_id"
         attr_reader name
-        self.attributes["#{name}_id".intern] = {type: :int}
+        self.attributes["#{name}_id".intern] = {type: :foreign_key}
         define_method "#{name}=" do |attributes|
           instance_variable_set("@#{name}_id", attributes["id"])
           instance_variable_set("@#{name}", klass.new(session, attributes))

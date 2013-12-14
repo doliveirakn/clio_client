@@ -37,16 +37,38 @@ module ClioClient
 
     def to_params
       self.class.attributes.inject({}) do |h, (attr, opts)|
-        self[attr] ? h.merge(attr => paramify(self[attr])) : h
+        has_attribute?(attr) ? h.merge(attr => paramify(self[attr])) : h
       end
     end
+
+    def self.inspect
+      attr_list = attributes.inject([]) do |a, (attr, opts)|
+        a << "#{attr}: #{opts[:type]}"
+      end * ", "
+      "#{super}(#{attr_list})"
+    end
     
+    def inspect
+      attr_list = self.class.attributes.inject([]) do |a, (attr, opts)|
+        if has_attribute?(attr)
+          a << "#{attr}: #{self[attr]}"
+        else
+          a
+        end
+      end * ", "      
+      "#<#{self.class} #{attr_list}>"
+    end
+
     private
+    def has_attribute?(attr)
+      instance_variable_defined?("@#{attr}")
+    end
+
     def paramify(val)
       if val.kind_of? ClioClient::Base
         val.to_params
       else
-        val.to_s
+        val
       end
     end
 
@@ -61,6 +83,8 @@ module ClioClient
       when :array then 
         Array(val).collect{|v| options[:of].try(:new, v) || v }
       when :rate then ClioClient::Rate.new(val)
+      when :foreign_key 
+        (val == "" || val.nil?) ? nil : val.to_i
       else val
       end
     end
