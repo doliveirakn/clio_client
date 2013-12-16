@@ -10,7 +10,7 @@ module ClioClient
 
       private
       def data_item(params)
-        data_klass(params).new(session, params)
+        data_klass(params).new(params, session)
       end
 
     end

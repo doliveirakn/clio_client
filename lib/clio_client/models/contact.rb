@@ -5,19 +5,22 @@ module ClioClient
                    type:                 {type: :string,   readonly: true},
                    created_at:           {type: :datetime, readonly: true},
                    updated_at:           {type: :datetime, readonly: true},
-                   phone_numbers:        {type: :array                   },
-                   email_addresses:      {type: :array                   },
-                   addresses:            {type: :array                   },
-                   web_sites:            {type: :array                   },
-                   instant_messages:     {type: :array                   },
                    name:                 {type: :string                  },
                    prefix:               {type: :string                  },
                    first_name:           {type: :string                  },
                    last_name:            {type: :string                  }, 
-                   title:                {type: :string                  },
-                   custom_field_values:  {type: :array                   },
-                   activity_rates:       {type: :array                   }
+                   title:                {type: :string                  }
                    )
+
+    has_many_association :phone_numbers,       ClioClient::PhoneNumber
+    has_many_association :email_addresses,     ClioClient::EmailAddress
+    has_many_association :addresses,           ClioClient::Address
+    has_many_association :web_sites,           ClioClient::WebSite
+    has_many_association :instant_messegers,   ClioClient::InstantMessenger
+    has_many_association :custom_field_values, ClioClient::CustomFieldValue
+    has_many_association :activity_rates,      ClioClient::Rate
+
+    has_association      :company,             ClioClient::Company
 
   end
 end

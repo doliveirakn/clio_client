@@ -1,15 +1,12 @@
 module ClioClient
 
-  class Rate < Resource
+  class CustomFieldValue < Resource
+
     set_attributes(id:                      {type: :int, readonly: true},
+                   type:                    {type: :string},
                    created_at:              {type: :datetime, readonly: true},
                    updated_at:              {type: :datetime, readonly: true},
-                   rate:                    {type: :decimal},
-                   source:                  {type: :string   }, 
-                   flat_rate:               {type: :boolean}
                    )
 
-
   end
-
 end

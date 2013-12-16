@@ -16,12 +16,12 @@ module ClioClient
                    recurrence_rule:          {type: :string                  },
                    parent_calendar_entry_id: {type: :int                     },
                    original_event_start_at:  {type: :datetime                },
-                   reminders:                {type: :array, of: :reminder    },
                    )
 
     has_association      :matter,              ClioClient::Matter
     has_association      :calendar,            ClioClient::Calendar
     has_many_association :attending_calendars, ClioClient::Calendar
+    has_many_association :reminders,           ClioClient::Reminder
 
     private
     def api

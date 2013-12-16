@@ -1,15 +1,12 @@
 module ClioClient
+  class EmailAddress < Resource
 
-  class Rate < Resource
     set_attributes(id:                      {type: :int, readonly: true},
                    created_at:              {type: :datetime, readonly: true},
                    updated_at:              {type: :datetime, readonly: true},
-                   rate:                    {type: :decimal},
-                   source:                  {type: :string   }, 
-                   flat_rate:               {type: :boolean}
+                   name:                    {type: :string},
+                   address:                 {type: :string}
                    )
 
-
   end
-
 end

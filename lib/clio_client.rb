@@ -25,7 +25,12 @@ module ClioClient
   autoload :TimeEntry,           'clio_client/models/time_entry'
   autoload :User,                'clio_client/models/user'
 
-  # Support classes
+  autoload :PhoneNumber,         'clio_client/support/phone_number'
+  autoload :EmailAddress,        'clio_client/support/email_address'
+  autoload :Address,             'clio_client/support/address'
+  autoload :WebSite,             'clio_client/support/web_site'
+  autoload :InstantMessenger,    'clio_client/support/instant_messenger'
+  autoload :CustomFieldValue,    'clio_client/support/custom_field_value'
   autoload :Rate,                'clio_client/support/rate'
   autoload :Reminder,            'clio_client/support/reminder'
 
