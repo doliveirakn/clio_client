@@ -9,13 +9,14 @@ module ClioClient
                    subject:     {type: :string},
                    body:        {type: :text},
                    date:        {type: :date},
-                   matter:      {type: :hash},
                    senders:     {type: :array},
                    receivers:   {type: :array}                 
                    )
     
     alias_method :name, :subject
     alias_method :name=, :subject=
+
+    has_association :matter, ClioClient::Matter
     
     private
     def api
