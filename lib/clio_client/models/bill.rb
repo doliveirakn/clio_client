@@ -26,22 +26,13 @@ module ClioClient
                    status:              {type: :string, readonly: true  },
                    )
 
-    has_association      :client,            ClioClient::Contact
+    has_association(:client,            ClioClient::Contact, 
+                    :polymorphic => true, :accepted_types => %w(Person Company))
     has_many_association :matters,           ClioClient::Matter
 
     def pdf
       unless self.id.nil?
         api.download(self.id)
-      end
-    end
-
-    def client=(attributes)
-      accepted_types = %w(Person Company)
-      if accepted_types.include? attributes["type"]
-        klass = ClioClient.const_get attribute["type"].intern
-        obj = klass.new(attributes, session)
-        write_attribute("client_id", obj.id)
-        write_attribute("client", obj)
       end
     end
 

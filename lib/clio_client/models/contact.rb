@@ -17,23 +17,14 @@ module ClioClient
     has_many_association :addresses,           ClioClient::Address
     has_many_association :web_sites,           ClioClient::WebSite
     has_many_association :instant_messengers,  ClioClient::InstantMessenger
-    has_many_association :custom_field_values, ClioClient::CustomFieldValue
-    has_many_association :activity_rates,      ClioClient::Rate
-
-    def custom_field_values=(array)
-      accepted_types = %w(CustomFieldCheckboxValue CustomFieldContactValue 
+    has_many_association(:custom_field_values, ClioClient::CustomFieldValue, 
+        :polymorphic => true, 
+        :accepted_types => %w(CustomFieldCheckboxValue CustomFieldContactValue 
         CustomFieldCurrencyValue CustomFieldDateValue CustomFieldTimeValue 
         CustomFieldEmailValue CustomFieldMatterValue CustomFieldNumericValue 
         CustomFieldPicklistValue CustomFieldTextAreaValue 
         CustomFieldTextLineValue CustomFieldUrlValue)
-      many = array.collect do |attributes|
-        if accepted_types.include? attributes["type"]
-          klass = ClioClient.const_get attributes["type"].intern
-          klass.new(attributes, session)
-        end
-      end
-      write_attribute("custom_field_values", many)
-    end
+    has_many_association :activity_rates,      ClioClient::Rate
 
   end
 end

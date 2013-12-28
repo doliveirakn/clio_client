@@ -63,24 +63,36 @@ module ClioClient
         end
       end
 
-      def has_association(name, klass)
+      def has_association(name, klass, options = {})
         attr_accessor "#{name}_id"
         attr_reader name
         self.attributes["#{name}_id".intern] = {type: :foreign_key}
         define_method "#{name}=" do |attributes|
           write_attribute("#{name}_id", attributes["id"])
-          write_attribute("#{name}", klass.new(attributes, session))
+          if options[:polymorphic]
+            obj = polymorphic_object(attributes, options[:accepted_types])
+          else
+            obj = klass.new(attributes, session)
+          end
+          write_attribute("#{name}", )
         end      
       end
 
-      def has_many_association(name, klass)
+      def has_many_association(name, klass, options = {})
         attr_reader name
         self.attributes[name.intern] = {type: :has_many_association}
         define_method "#{name}=" do |arr|
-          many = arr.collect{|attributes| klass.new(attributes, session) } 
+          many = arr.collect do |attributes| 
+            if options[:polymorphic]
+              polymorphic_object(attributes, options[:accepted_types])
+            else
+              klass.new(attributes, session)
+            end
+          end
           write_attribute(name, many)
         end      
       end
+      
     end
       
     def ==(o)
@@ -115,6 +127,13 @@ module ClioClient
     end
 
     private
+    def polymorphic_object(attributes, accepted_types)
+      if accepted_types.include? attributes["type"]
+        klass = ClioClient.const_get attributes["type"].intern
+        klass.new(attributes, session)
+      end
+    end
+
     def write_attribute(name, value)
       instance_variable_set("@#{name}", value)
     end

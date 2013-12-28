@@ -9,14 +9,19 @@ module ClioClient
                    subject:     {type: :string},
                    body:        {type: :text},
                    date:        {type: :date},
-                   senders:     {type: :array},
-                   receivers:   {type: :array}                 
                    )
 
     alias_method :name, :subject
     alias_method :name=, :subject=
 
-    has_association :matter, ClioClient::Matter
+    has_association :matter,         ClioClient::Matter
+    has_many_association(:senders,   ClioClient::Resource, 
+                         :polymorphic => true, 
+                         :accepted_types => %w(Contact User))
+
+    has_many_association(:receivers, ClioClient::Resource, 
+                         :polymorphic => true, 
+                         :accepted_types => %w(Contact User))
     
     private
     def api
