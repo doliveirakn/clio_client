@@ -74,7 +74,7 @@ module ClioClient
           else
             obj = klass.new(attributes, session)
           end
-          write_attribute("#{name}", )
+          write_attribute("#{name}", obj)
         end      
       end
 

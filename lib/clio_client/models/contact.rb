@@ -23,7 +23,7 @@ module ClioClient
         CustomFieldCurrencyValue CustomFieldDateValue CustomFieldTimeValue 
         CustomFieldEmailValue CustomFieldMatterValue CustomFieldNumericValue 
         CustomFieldPicklistValue CustomFieldTextAreaValue 
-        CustomFieldTextLineValue CustomFieldUrlValue)
+        CustomFieldTextLineValue CustomFieldUrlValue))
     has_many_association :activity_rates,      ClioClient::Rate
 
   end
