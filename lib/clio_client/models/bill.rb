@@ -35,6 +35,16 @@ module ClioClient
       end
     end
 
+    def client=(attributes)
+      accepted_types = %w(Person Company)
+      if accepted_types.include? attributes["type"]
+        klass = ClioClient.const_get attribute["type"].intern
+        obj = klass.new(attributes, session)
+        write_attribute("client_id", obj.id)
+        write_attribute("client", obj)
+      end
+    end
+
     private
     def api
       session.bills

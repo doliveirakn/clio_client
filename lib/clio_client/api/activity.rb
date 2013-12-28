@@ -7,11 +7,10 @@ module ClioClient
       include ClioClient::Api::Findable
 
       private
-      def data_klass(params)
-        if params['type'] == 'TimeEntry'
-          ClioClient::TimeEntry
-        elsif params['type'] == 'ExpenseEntry'
-          ClioClient::ExpenseEntry
+      def data_klass(attributes)
+        accepted_types = %w(TimeEntry ExpenseEntry)
+        if accepted_types.include? attributes["type"]
+          ClioClient.const_get attribute["type"].intern
         end
       end
 

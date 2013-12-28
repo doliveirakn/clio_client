@@ -35,6 +35,10 @@ module ClioClient
       @communications ||= ClioClient::Api::Communication.new(self)
     end
 
+    def contacts
+      @contacts ||= ClioClient::Api::Contact.new(self)
+    end
+
   end
 
 end

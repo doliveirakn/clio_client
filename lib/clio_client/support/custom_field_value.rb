@@ -6,6 +6,7 @@ module ClioClient
                    type:                    {type: :string},
                    created_at:              {type: :datetime, readonly: true},
                    updated_at:              {type: :datetime, readonly: true},
+                   value:                   {type: :variable}
                    )
 
   end

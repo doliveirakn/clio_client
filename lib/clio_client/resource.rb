@@ -52,14 +52,14 @@ module ClioClient
             if options[:readonly] && !instance_variable_get("@#{name}").nil?
               raise AttributeReadOnly 
             end
-            instance_variable_set("@#{name}", convert_attribute(value, options))
+            write_attribute("#{name}", convert_attribute(value, options))
           end
         end
       end
       
       def inherited(subclass)
         if !self.attributes.nil?
-          subclass.set_attributes(self.attributes)
+          subclass.attributes = self.attributes
         end
       end
 
@@ -68,8 +68,8 @@ module ClioClient
         attr_reader name
         self.attributes["#{name}_id".intern] = {type: :foreign_key}
         define_method "#{name}=" do |attributes|
-          instance_variable_set("@#{name}_id", attributes["id"])
-          instance_variable_set("@#{name}", klass.new(attributes, session))
+          write_attribute("#{name}_id", attributes["id"])
+          write_attribute("#{name}", klass.new(attributes, session))
         end      
       end
 
@@ -78,7 +78,7 @@ module ClioClient
         self.attributes[name.intern] = {type: :has_many_association}
         define_method "#{name}=" do |arr|
           many = arr.collect{|attributes| klass.new(attributes, session) } 
-          instance_variable_set("@#{name}", many)
+          write_attribute(name, many)
         end      
       end
     end
@@ -91,6 +91,7 @@ module ClioClient
     def [](val)
       self.send(val)
     end
+
 
     def save
       if self.id.nil?
@@ -114,6 +115,10 @@ module ClioClient
     end
 
     private
+    def write_attribute(name, value)
+      instance_variable_set("@#{name}", value)
+    end
+
     def api
       raise NotImplementedError
     end
@@ -123,7 +128,7 @@ module ClioClient
     end
 
     def paramify(val)      
-      if val.kind_of? ClioClient::Base
+      if val.kind_of? ClioClient::Resource
         val.to_params
       elsif val.kind_of? Array
         val.collect{|v| paramify(v) }
@@ -146,6 +151,8 @@ module ClioClient
         !!val
       when :datetime 
         val.kind_of?(DateTime) ? val : DateTime.parse(val)
+      when :datetime 
+        val.kind_of?(Time) ? val : Time.parse(val)
       when :foreign_key 
         (val == "" || val.nil?) ? nil : val.to_i
       else 
