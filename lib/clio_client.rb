@@ -13,23 +13,25 @@ module ClioClient
 
   # Models
   {
-  :Activity =>            'activity',
-  :ActivityDescription => 'activity_description',
-  :Bill =>                'bill',
-  :CalendarEntry =>       'calendar_entry',
-  :Calendar =>            'calendar',
-  :Communication =>       'communication',
-  :Company =>             'company',
-  :Contact =>             'contact',
-  :CustomFieldSet =>      'custom_field_set',
-  :CustomField =>         'custom_field',
-  :ExpenseEntry =>        'expense_entry',
-  :EmailCommunication =>  'email_communication',
-  :Matter =>              'matter',
-  :Person =>              'person',
-  :PhoneCommunication =>  'phone_communication',
-  :TimeEntry =>           'time_entry',
-  :User =>                'user'
+    :Activity =>            'activity',
+    :ActivityDescription => 'activity_description',
+    :Bill =>                'bill',
+    :CalendarEntry =>       'calendar_entry',
+    :Calendar =>            'calendar',
+    :Communication =>       'communication',
+    :Company =>             'company',
+    :Contact =>             'contact',
+    :CustomFieldSet =>      'custom_field_set',
+    :CustomField =>         'custom_field',
+    :DocumentVersion =>     'document_version',
+    :Document =>            'document',
+    :ExpenseEntry =>        'expense_entry',
+    :EmailCommunication =>  'email_communication',
+    :Matter =>              'matter',
+    :Person =>              'person',
+    :PhoneCommunication =>  'phone_communication',
+    :TimeEntry =>           'time_entry',
+    :User =>                'user'
   }.each_pair do |klass, file| 
     autoload klass, "clio_client/models/#{file}"
   end
@@ -62,23 +64,25 @@ module ClioClient
 
   module Api
     {
-     :Base =>              'base',
-     :Activity =>           'activity',
-     :ActivityDescription =>'activity_description',
-     :Bill =>               'bill',
-     :CalendarEntry =>      'calendar_entry',
-     :Calendar =>           'calendar',
-     :Communication =>      'communication',
-     :Contact =>            'contact',
-     :CustomFieldSet =>     'custom_field_set',    
-     :CustomField =>        'custom_field',
+      :Base =>              'base',
+      :Activity =>           'activity',
+      :ActivityDescription =>'activity_description',
+      :Bill =>               'bill',
+      :CalendarEntry =>      'calendar_entry',
+      :Calendar =>           'calendar',
+      :Communication =>      'communication',
+      :Contact =>            'contact',
+      :CustomFieldSet =>     'custom_field_set',    
+      :CustomField =>        'custom_field',
+      :DocumentVersion =>    'document_version',
+      :Document =>           'document',
 
-     :Crudable =>          'crudable',
-     :Findable =>          'findable',
-     :Listable =>          'listable'
+      :Crudable =>          'crudable',
+      :Findable =>          'findable',
+      :Listable =>          'listable'
     }.each_pair do |klass, file| 
-    autoload klass, "clio_client/api/#{file}"
-  end
+      autoload klass, "clio_client/api/#{file}"
+    end
 
   end
 

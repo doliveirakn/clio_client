@@ -77,6 +77,8 @@ module ClioClient
         raise ClioClient::Unauthorized(body["message"])
       when Net::HTTPBadRequest
         raise ClioClient::BadRequest(body["message"])        
+      when Net::HTTPSeeOther
+        res["Location"]
       else
         raise "Unknown #{res.class} response. #{body["message"]}"
       end
