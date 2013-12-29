@@ -26,5 +26,13 @@ module ClioClient
         CustomFieldTextLineValue CustomFieldUrlValue))
     has_many_association :activity_rates,      ClioClient::Rate
 
+
+    private
+    def api
+      session.contacts
+    end
+      
+
+
   end
 end

@@ -7,7 +7,7 @@ module ClioClient
                    created_at:  {type: :datetime, readonly: true},
                    updated_at:  {type: :datetime, readonly: true},
                    subject:     {type: :string},
-                   body:        {type: :text},
+                   body:        {type: :string},
                    date:        {type: :date},
                    )
 
