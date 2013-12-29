@@ -27,6 +27,7 @@ module ClioClient
     :Document =>            'document',
     :ExpenseEntry =>        'expense_entry',
     :EmailCommunication =>  'email_communication',
+    :Group =>               'group',
     :Matter =>              'matter',
     :Person =>              'person',
     :PhoneCommunication =>  'phone_communication',
@@ -76,6 +77,7 @@ module ClioClient
       :CustomField =>        'custom_field',
       :DocumentVersion =>    'document_version',
       :Document =>           'document',
+      :Group =>              'group',
 
       :Crudable =>          'crudable',
       :Findable =>          'findable',

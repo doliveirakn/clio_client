@@ -23,7 +23,7 @@ module ClioClient
       custom_field_sets:     ClioClient::Api::CustomFieldSet,
       custom_fields:         ClioClient::Api::CustomField,
       documents:             ClioClient::Api::Document,
-
+      groups:                ClioClient::Api::Group
     }.each_pair do |method, klass| 
       define_method method do
         end_points[method] ||= klass.new(self)
