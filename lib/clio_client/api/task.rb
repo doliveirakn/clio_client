@@ -13,9 +13,9 @@ module ClioClient
         ClioClient::Task
       end
 
-      def end_point_url;     'relationships';  end
-      def plural_resource;   'relationships';  end
-      def singular_resource; 'relationship';   end
+      def end_point_url;     'tasks';  end
+      def plural_resource;   'tasks';  end
+      def singular_resource; 'task';   end
 
     end
   end

@@ -14,6 +14,7 @@ module ClioClient
 
   # Models
   {
+    :Account =>             'account',
     :Activity =>            'activity',
     :ActivityDescription => 'activity_description',
     :Bill =>                'bill',
@@ -36,8 +37,8 @@ module ClioClient
     :PracticeArea =>        'practice_area',
     :TimeEntry =>           'time_entry',
     :Relationship =>        'relationship',
-    :Tasks =>               'tasks',
-    :TimelineEvents =>      'timeline_events',
+    :Task =>                'task',
+    :TimelineEvent =>       'timeline_event',
     :Timer =>               'timer',
     :User =>                'user'
   }.each_pair do |klass, file| 
@@ -89,8 +90,8 @@ module ClioClient
       :Note =>               'note',
       :PracticeArea =>       'practice_area',
       :Relationship =>       'relationship',
-      :Tasks =>              'tasks',
-      :TimelineEvents =>     'timeline_events',
+      :Task =>               'task',
+      :TimelineEvent =>     'timeline_event',
       :Timer =>              'timer',
       :User =>               'user',
 

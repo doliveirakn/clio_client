@@ -14,6 +14,15 @@ module ClioClient
                    name:              {type: :string, readonly: true}
                    )
 
+    def avatar
+      api.avatar(id)
+    end
+
+    private
+    def api
+      session.users
+    end
+
   end
 
 end
