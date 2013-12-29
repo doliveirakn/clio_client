@@ -10,7 +10,7 @@ module ClioClient
       def data_klass(attributes)
         accepted_types = %w(TimeEntry ExpenseEntry)
         if accepted_types.include? attributes["type"]
-          ClioClient.const_get attribute["type"].intern
+          ClioClient.const_get attributes["type"].intern
         end
       end
 

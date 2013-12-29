@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe ClioClient::Resource do
 
-  subject { TestResource.new(session, params) }
-  let(:params) { {id: 1} }
+  subject { TestResource.new(params, session) }
+  let(:params) { {"id" => 1} }
   let(:session) { double("ClioClient::Session") }
   let(:api) { double("ClioClient::Api::Base") }
   before { subject.stub(:api).and_return(api) }
   
   describe "an integer field" do
-    let(:params) { {int: "1"} }
+    let(:params) { {"int" => "1"} }
 
     it "is converted to an integer on creation" do
       expect(subject.int).to be_kind_of Fixnum
@@ -18,7 +18,7 @@ describe ClioClient::Resource do
   end
 
   describe "a date field" do
-    let(:params) { {date: "2013-12-01"} }
+    let(:params) { {"date" => "2013-12-01"} }
 
     it "is converted to an date on creation" do
       expect(subject.date).to be_kind_of Date
@@ -27,7 +27,7 @@ describe ClioClient::Resource do
   end
 
   describe "a datetime field" do
-    let(:params) { {datetime: "2013-12-01 00:00:00"} }
+    let(:params) { {"datetime" => "2013-12-01 00:00:00"} }
 
     it "is converted to an datetime on creation" do
       expect(subject.datetime).to be_kind_of DateTime
@@ -35,7 +35,7 @@ describe ClioClient::Resource do
 
   end
   describe "a string field" do
-    let(:params) { {string: "Hello"} }
+    let(:params) { {"string" => "Hello"} }
 
     it "is converted to an string on creation" do
       expect(subject.string).to be_kind_of String
@@ -44,7 +44,7 @@ describe ClioClient::Resource do
   end
 
   describe "a boolean field" do
-    let(:params) { {boolean: "true"} }
+    let(:params) { {"boolean" => "true"} }
 
     it "is converted to an boolean on creation" do
       expect(subject.boolean).to be_kind_of TrueClass
@@ -61,7 +61,7 @@ describe ClioClient::Resource do
   end
 
   describe "#save" do
-    let(:to_params) { {special: :params} }
+    let(:to_params) { {"special" => :params} }
     before { subject.stub(:to_params).and_return(to_params) }
     context "when the record is new" do
       let(:params) { {} }

@@ -108,7 +108,7 @@ module ClioClient
     def save
       if self.id.nil?
         saved_item = api.create(self.to_params)
-        self.id = saved_item.id
+        self.id = saved_item && saved_item.id
         self
       else
         api.update(self.id, self.to_params)
@@ -117,7 +117,7 @@ module ClioClient
     end
 
     def reload
-      raise ResourceNotSaved if self.id.nil?
+      raise ResourceNotSaved if self.id.nil?      
       api.find(self.id)
     end
 

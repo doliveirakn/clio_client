@@ -4,7 +4,7 @@ describe ClioClient::Activity do
 
   let(:session) { double("ClioClient::Session") }
 
-  subject { ClioClient::Activity.new(session, params) }
+  subject { ClioClient::Activity.new(params, session) }
 
   context "user association" do
     let(:attribute) { :user }

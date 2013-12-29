@@ -10,7 +10,7 @@ describe ClioClient::Api::Findable do
 
   describe "#find" do
     let(:response) do
-      { "dummy" => { id: 1 }}
+      { "dummy" => { "id" => 1 }}
     end
     
     it "should return the correct data item" do

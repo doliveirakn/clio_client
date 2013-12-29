@@ -3,8 +3,12 @@ module ClioClient
     module Findable
       
       def find(id)
-        response = session.get("#{end_point_url}/#{id}")
-        data_item(response[singular_resource])
+        begin
+          response = session.get("#{end_point_url}/#{id}")
+          data_item(response[singular_resource])
+        rescue ClioClient::ResourceNotFound
+          nil
+        end
       end
 
     end
