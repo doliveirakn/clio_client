@@ -64,7 +64,7 @@ module ClioClient
     end
 
     def parse_response(res, parse)
-      if res.body != "" && !res.body.nil?
+      if res.body !~ /^\s*$/ && !res.body.nil?
         body = parse ? JSON.parse(res.body) : res.body
       end
 

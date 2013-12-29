@@ -2,6 +2,12 @@ module ClioClient
   module Api
 
     module Listable
+
+      def first(params = {})
+        params[:limit] = 1
+        list(params).first
+      end
+
       def list(params = {})
         response = session.get(end_point_url, params)
         @pagination_details = {last_query: params, records: 0, next_offset: response["next_offset"], 
