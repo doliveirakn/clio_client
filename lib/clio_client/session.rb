@@ -30,7 +30,7 @@ module ClioClient
       relationships:         ClioClient::Api::Relationship,
       tasks:                 ClioClient::Api::Task,
       timeline_events:       ClioClient::Api::TimelineEvent,
-#      timer:                 ClioClient::Api::Timer,
+      timer:                 ClioClient::Api::Timer,
       users:                 ClioClient::Api::User
     }.each_pair do |method, klass| 
       define_method method do
