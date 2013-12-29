@@ -26,7 +26,12 @@ module ClioClient
       groups:                ClioClient::Api::Group,
       matters:               ClioClient::Api::Matter,
       notes:                 ClioClient::Api::Note,
-      practice_areas:        ClioClient::Api::PracticeArea
+      practice_areas:        ClioClient::Api::PracticeArea,
+      relationships:         ClioClient::Api::Relationship,
+      tasks:                 ClioClient::Api::Task,
+#      timeline_events:       ClioClient::Api::TimelineEvent,
+#      timer:                 ClioClient::Api::Timer,
+#      users:                 ClioClient::Api::User
     }.each_pair do |method, klass| 
       define_method method do
         end_points[method] ||= klass.new(self)
