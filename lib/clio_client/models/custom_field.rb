@@ -8,8 +8,9 @@ module ClioClient
                    parent_type: {type: :string},
                    field_type:  {type: :string},
                    displayed:   {type: :boolean},
-                   custom_field_picklist_options:     {type: :array},
                    )
+
+    has_many_association :custom_field_picklist_options, ClioClient::CustomFieldPicklistOption
 
     private
     def api

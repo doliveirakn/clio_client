@@ -7,8 +7,10 @@ module ClioClient
                    name:        {type: :string},
                    parent_type: {type: :string},
                    displayed:   {type: :boolean},
-                   members:     {type: :array},
                    )
+
+    has_many_association :members, ClioClient::CustomField
+
 
     private
     def api
