@@ -31,6 +31,7 @@ module ClioClient
     :Matter =>              'matter',
     :Person =>              'person',
     :PhoneCommunication =>  'phone_communication',
+    :PracticeArea =>        'practice_area',
     :TimeEntry =>           'time_entry',
     :User =>                'user'
   }.each_pair do |klass, file| 
@@ -78,6 +79,8 @@ module ClioClient
       :DocumentVersion =>    'document_version',
       :Document =>           'document',
       :Group =>              'group',
+      :Matter =>             'matter',
+      :PracticeArea =>       'practice_area',
 
       :Crudable =>          'crudable',
       :Findable =>          'findable',
