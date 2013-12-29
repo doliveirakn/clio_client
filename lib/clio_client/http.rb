@@ -74,9 +74,9 @@ module ClioClient
       when Net::HTTPSuccess
         body
       when Net::HTTPUnauthorized
-        raise ClioClient::Unauthorized(body["message"])
+        raise ClioClient::Unauthorized.new(body["message"])
       when Net::HTTPBadRequest
-        raise ClioClient::BadRequest(body["message"])        
+        raise ClioClient::BadRequest.new(body["message"])        
       when Net::HTTPSeeOther
         res["Location"]
       else

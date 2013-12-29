@@ -2,6 +2,7 @@ require 'net/http'
 require 'json'
 
 module ClioClient
+  
   { :Session =>       'session',
     :Base =>          'base',
     :Resource =>      'resource',
@@ -29,6 +30,7 @@ module ClioClient
     :EmailCommunication =>  'email_communication',
     :Group =>               'group',
     :Matter =>              'matter',
+    :Note =>                'note',
     :Person =>              'person',
     :PhoneCommunication =>  'phone_communication',
     :PracticeArea =>        'practice_area',
@@ -80,6 +82,7 @@ module ClioClient
       :Document =>           'document',
       :Group =>              'group',
       :Matter =>             'matter',
+      :Note =>               'note',
       :PracticeArea =>       'practice_area',
 
       :Crudable =>          'crudable',

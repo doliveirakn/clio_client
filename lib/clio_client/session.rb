@@ -25,6 +25,7 @@ module ClioClient
       documents:             ClioClient::Api::Document,
       groups:                ClioClient::Api::Group,
       matters:               ClioClient::Api::Matter,
+      notes:                 ClioClient::Api::Note,
       practice_areas:        ClioClient::Api::PracticeArea
     }.each_pair do |method, klass| 
       define_method method do
