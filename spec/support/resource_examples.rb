@@ -49,3 +49,22 @@ shared_examples "has many association" do
   end
 
 end
+
+shared_examples "model initialization" do
+
+  it "should record all of the attributes and values" do
+    params.each_pair do |key, actual_value|
+      expected_value = model[key]
+      if expected_value.kind_of? ClioClient::Resource
+        actual_value.each_pair do |nested_key, nested_value|
+          next if nested_key == "url"
+          expect(expected_value[nested_key].to_s).to eql(nested_value)
+        end
+      else
+        expect(expected_value.to_s).to eql(actual_value.to_s)
+      end
+    end
+  end
+
+end
+

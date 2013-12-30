@@ -16,8 +16,8 @@ module CommonLetHelpers
   let(:params) { {} }
   let(:association_params) { {} }
   let(:model) { described_class.new(params, session) }
-
 end
+
 
 RSpec.configure do |config|
   config.filter_run_excluding :external => true
