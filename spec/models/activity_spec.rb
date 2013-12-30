@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe ClioClient::Activity do
 
-  let(:session) { double("ClioClient::Session") }
-
-  subject { ClioClient::Activity.new(params, session) }
-
   context "user association" do
     let(:attribute) { :user }
     let(:klass) { ClioClient::User }    
