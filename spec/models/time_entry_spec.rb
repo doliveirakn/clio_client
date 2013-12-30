@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ClioClient::TimeEntry do
 
-  context "can be initialized with the example attributes" do
+  context "when initialized with the example attributes" do
     let(:params) do
       {
         "id" => "20",

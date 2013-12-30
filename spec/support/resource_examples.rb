@@ -52,18 +52,30 @@ end
 
 shared_examples "model initialization" do
 
-  it "should record all of the attributes and values" do
-    params.each_pair do |key, actual_value|
+  def check_attributes(model, attributes)
+    attributes.each_pair do |key, actual_value|
+      next if key == "url"
       expected_value = model[key]
       if expected_value.kind_of? ClioClient::Resource
-        actual_value.each_pair do |nested_key, nested_value|
-          next if nested_key == "url"
-          expect(expected_value[nested_key].to_s).to eql(nested_value)
+        check_attributes(expected_value, actual_value)
+      elsif expected_value.kind_of? Array
+        expected_value.zip(actual_value).each do |m, attr|
+          check_attributes(m, attr)
         end
       else
-        expect(expected_value.to_s).to eql(actual_value.to_s)
+        expect(expected_value.to_s).to eql(actual_value.to_s), custom_failure_message(key, expected_value, actual_value)
       end
     end
+  end
+
+  def custom_failure_message(key, e, a)
+    ["", "    key: #{key.inspect}",
+     "expected: #{e.to_s.inspect}",
+     "     got: #{a.to_s.inspect}", ""].join("\n")
+  end
+
+  it "should record all of the attributes and values" do
+    check_attributes(model, params)
   end
 
 end

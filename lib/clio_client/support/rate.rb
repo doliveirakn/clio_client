@@ -6,7 +6,8 @@ module ClioClient
                    updated_at:              {type: :datetime, readonly: true},
                    rate:                    {type: :decimal},
                    source:                  {type: :string   }, 
-                   flat_rate:               {type: :boolean}
+                   flat_rate:               {type: :boolean},
+                   user_id:                 {type: :int},
                    )
 
 
