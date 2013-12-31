@@ -3,9 +3,11 @@ module ClioClient
     
     set_attributes(
                    id:                       {type: :int,      readonly: true},
+                   type:                     {type: :string,   readonly: true},
                    created_at:               {type: :datetime, readonly: true},
                    updated_at:               {type: :datetime, readonly: true},
                    name:                     {type: :string                  },
+                   color:                    {type: :string                  },
                    permission:               {type: :string,   readonly: true}
                    )
 

@@ -15,19 +15,19 @@ module ClioClient
                    memo:                {type: :string                  },
                    start_at:            {type: :datetime                },
                    end_at:              {type: :datetime                },
-                   issued_at:           {type: :datetime                },
-                   due_at:              {type: :datetime                },
+                   issued_at:           {type: :date                    },
+                   due_at:              {type: :date                    },
                    tax_rate:            {type: :decimal                 },
                    secondary_tax_rate:  {type: :decimal                 },
                    discount:            {type: :decimal                 },
                    discount_type:       {type: :string                  },
                    discount_note:       {type: :note                    },
                    balance:             {type: :decimal                 },
+                   total:               {type: :decimal                 },
                    status:              {type: :string, readonly: true  },
                    )
 
-    has_association(:client,            ClioClient::Contact, 
-                    :polymorphic => true, :accepted_types => %w(Person Company))
+    has_association :client,            ClioClient::Contact
     has_many_association :matters,           ClioClient::Matter
 
     def pdf

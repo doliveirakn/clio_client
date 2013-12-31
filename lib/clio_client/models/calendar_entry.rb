@@ -15,7 +15,7 @@ module ClioClient
                    permission:               {type: :string,   readonly: true},
                    recurrence_rule:          {type: :string                  },
                    parent_calendar_entry_id: {type: :int                     },
-                   original_event_start_at:  {type: :datetime                },
+                   original_event_start_date: {type: :datetime                },
                    )
 
     has_association      :matter,              ClioClient::Matter
