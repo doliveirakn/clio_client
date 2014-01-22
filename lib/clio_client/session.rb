@@ -5,11 +5,13 @@ module ClioClient
     include Http
     include Authorization
 
-    attr_accessor :access_token
+    attr_accessor :access_token, :client_id, :client_secret
     attr_accessor :end_points
 
     def initialize(credentials = {})
       self.access_token = credentials[:access_token]
+      self.client_id = credentials[:client_id]
+      self.client_secret = credentials[:client_secret]
       self.end_points = {}
     end
 
@@ -22,6 +24,7 @@ module ClioClient
       contacts:              ClioClient::Api::Contact,
       custom_field_sets:     ClioClient::Api::CustomFieldSet,
       custom_fields:         ClioClient::Api::CustomField,
+      document_versions:     ClioClient::Api::DocumentVersion,
       documents:             ClioClient::Api::Document,
       groups:                ClioClient::Api::Group,
       matters:               ClioClient::Api::Matter,

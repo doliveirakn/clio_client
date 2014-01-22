@@ -5,7 +5,7 @@ module ClioClient
 
     def authorize_url(redirect_uri, state = nil)
       params = { response_type: :code, 
-        client_id: ENV['CLIENT_ID'],
+        client_id: self.client_id,
         redirect_uri: redirect_uri
       }
       params[:state] = state if state
@@ -15,8 +15,8 @@ module ClioClient
     def authorize_with_code(redirect_uri, code)
       params = { code: code,
         grant_type: "authorization_code",
-        client_id: ENV["CLIENT_ID"],
-        client_secret: ENV["CLIENT_SECRET"],
+        client_id: self.client_id,
+        client_secret: self.client_secret,
         redirect_uri: redirect_uri
       }
       uri = base_uri("/oauth/token")
