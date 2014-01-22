@@ -52,7 +52,7 @@ To get the access token, you can use the client to generate the authorize url to
 ```
 client = ClioClient::Session.new({client_id: client_id, client_secret: client_secret})
 client.authorize_url("http://mysite.com")
- => https://app.goclio.com/oauth/authorize?response_type=code&client_id=EG0fYOtoJq0AbTak3yXcXH4vui7okJM9ZJeQOxsU&redirect_uri=http%3A%2F%2Fmysite.com
+ => https://app.goclio.com/oauth/authorize?response_type=code&client_id=xxxxxxxx&redirect_uri=http%3A%2F%2Fmysite.com
 ```
 Once the authorization has been granted Clio will redirect back to, in this example, `http://mysite.com` with the authorization code in a params `code`
 
