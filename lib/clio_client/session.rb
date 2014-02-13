@@ -2,6 +2,14 @@ module ClioClient
 
   class Session
 
+    class << self
+      
+      attr_accessor :base_scope_url
+
+    end
+    
+    self.base_scope_url = "https://app.goclio.com"
+
     include Http
     include Authorization
 
