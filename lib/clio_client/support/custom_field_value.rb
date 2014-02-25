@@ -8,6 +8,8 @@ module ClioClient
                    updated_at:              {type: :datetime, readonly: true},
                    value:                   {type: :variable}
                    )
-
+    
+    has_association(:custom_field, ClioClient::CustomField)
+    
   end
 end
