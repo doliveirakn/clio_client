@@ -11,11 +11,6 @@ module ClioClient
     
     has_association :owner, ClioClient::User
 
-    private
-    def api
-      session.contacts
-    end
-
   end
 
 end
