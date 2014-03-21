@@ -42,7 +42,7 @@ module ClioClient
 
     private
     def api
-      session.contacts
+      session.matters
     end
 
   end
