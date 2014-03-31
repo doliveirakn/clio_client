@@ -65,6 +65,10 @@ client.authorized?
 
 At this point the client is ready to use. You will need to save the `access_token` for future use. 
 
+```
+client.access_token = access_token
+````
+
 There are many different end points you can now interact with. They all act mostly the same. 
 
 The end points available are on the ClioClient::Session
