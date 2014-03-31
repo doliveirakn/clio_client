@@ -32,6 +32,7 @@ Or install it yourself as:
 
 You will need to do a few things before you can get started with Clio and the API. For convience, this information is pulled directly from Clio's API documentation at the top.
 
+Sample application using the library: https://github.com/themis/clio_client
 
 ### Create a Clio Account
 
