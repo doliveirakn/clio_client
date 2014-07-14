@@ -56,7 +56,7 @@ module ClioClient
     def make_request(req, uri, parse = true)
       req.add_field("Accept", "text/json")
       n = Net::HTTP.new(uri.host, uri.port)
-      n.use_ssl = true
+      n.use_ssl = uri.scheme == 'https'
       res = n.start do |http|
         http.request(req)
       end
