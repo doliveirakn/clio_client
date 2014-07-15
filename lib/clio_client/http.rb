@@ -15,7 +15,7 @@ module ClioClient
 
     def get(path, params ={}, parse=true)
       uri = base_uri("#{api_prefix}/#{path}", params)
-      req = Net::HTTP::Get.new(uri.to_s)
+      req = Net::HTTP::Get.new(uri.request_uri)
       make_api_request(req, uri, parse)
     end
 
