@@ -11,7 +11,8 @@ module ClioClient
                    last_name:         {type: :string, readonly: true}, 
                    email:             {type: :string, readonly: true},
                    enabled:           {type: :boolean, readonly: true},
-                   name:              {type: :string, readonly: true}
+                   name:              {type: :string, readonly: true},
+                   clio_connect:      {type: :boolean, readonly: true}
                    )
 
     def avatar
