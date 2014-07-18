@@ -34,6 +34,7 @@ module ClioClient
       custom_fields:         ClioClient::Api::CustomField,
       document_versions:     ClioClient::Api::DocumentVersion,
       documents:             ClioClient::Api::Document,
+      document_categories:   ClioClient::Api::DocumentCategory,
       groups:                ClioClient::Api::Group,
       matters:               ClioClient::Api::Matter,
       notes:                 ClioClient::Api::Note,
