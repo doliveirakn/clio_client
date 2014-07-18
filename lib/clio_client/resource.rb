@@ -167,7 +167,7 @@ module ClioClient
       when :decimal
         val.to_f
       when :boolean 
-        val == "true"
+        val && val == "false"
       when :datetime 
         val.kind_of?(DateTime) ? val : DateTime.parse(val)
       when :datetime 
