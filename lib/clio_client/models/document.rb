@@ -8,6 +8,7 @@ module ClioClient
                    category:      {type: :string, readonly: true},
                    content_type:  {type: :string, readonly: true},
                    filename:      {type: :string, readonly: true},
+                   number:        {type: :int, readonly: true},
                    size:          {type: :int, readonly: true},
                    last_modified: {type: :datetime},
                    )
