@@ -85,7 +85,8 @@ module ClioClient
         define_method "#{name}=" do |arr|
           many = arr.collect do |attributes| 
             if options[:polymorphic]
-              polymorphic_object(attributes, options[:accepted_types])
+              obj = polymorphic_object(attributes, options[:accepted_types])
+              obj ||= klass.new(attributes, session)
             else
               klass.new(attributes, session)
             end
