@@ -71,6 +71,7 @@ module ClioClient
           write_attribute("#{name}_id", attributes["id"])
           if options[:polymorphic]
             obj = polymorphic_object(attributes, options[:accepted_types])
+            obj ||= klass.new(attributes, session)
           else
             obj = klass.new(attributes, session)
           end
