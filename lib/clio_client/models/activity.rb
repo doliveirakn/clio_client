@@ -17,6 +17,7 @@ module ClioClient
     
 
     has_association :user,                 ClioClient::User
+    has_association :bill,                 ClioClient::Bill
     has_association :matter,               ClioClient::Matter
     has_association :activity_description, ClioClient::ActivityDescription
     has_association :communication,        ClioClient::Communication
