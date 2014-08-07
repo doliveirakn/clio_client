@@ -3,6 +3,15 @@ module ClioClient
     class TimelineEvent < Base
 
       include ClioClient::Api::Listable
+      include ClioClient::Api::Crudable
+
+      def update
+        raise NotImplementedError
+      end
+
+      def destroy
+        raise NotImplementedError
+      end
 
       private
 
