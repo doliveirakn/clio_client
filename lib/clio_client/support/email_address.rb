@@ -5,7 +5,8 @@ module ClioClient
                    created_at:              {type: :datetime, readonly: true},
                    updated_at:              {type: :datetime, readonly: true},
                    name:                    {type: :string},
-                   address:                 {type: :string}
+                   address:                 {type: :string},
+                   default_email:           {type: :boolean}
                    )
 
   end
