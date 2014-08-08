@@ -15,6 +15,7 @@ module ClioClient
                    close_date:            {type: :date},
                    billable:              {type: :boolean},
                    maildrop_address:      {type: :int, readonly: true},
+                   group_id:              {type: :int},
                    )
 
     alias_method :name, :display_number
