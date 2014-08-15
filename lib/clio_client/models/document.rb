@@ -10,7 +10,7 @@ module ClioClient
                    filename:      {type: :string, readonly: true},
                    number:        {type: :int, readonly: true},
                    size:          {type: :int, readonly: true},
-                   last_modified: {type: :datetime},
+                   last_modified_at: {type: :datetime},
                    )
 
     has_association :matter, ClioClient::Matter

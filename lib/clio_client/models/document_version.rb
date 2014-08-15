@@ -8,7 +8,7 @@ module ClioClient
                    updated_at:    {type: :datetime, readonly: true},
                    size:          {type: :int, readonly: true},
                    content_type:  {type: :string, readonly: true},
-                   last_modified: {type: :datetime},
+                   last_modified_at: {type: :datetime},
                    filename:      {type: :string}
                    )
 
