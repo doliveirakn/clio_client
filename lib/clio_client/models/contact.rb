@@ -10,7 +10,8 @@ module ClioClient
                    first_name:           {type: :string                  },
                    last_name:            {type: :string                  }, 
                    title:                {type: :string                  },
-                   clio_connect_email:   {type: :string,   readonly: true}
+                   clio_connect_email:   {type: :string,   readonly: true},
+                   email:                {type: :string,   readonly: true}
                    )
 
     has_many_association :phone_numbers,       ClioClient::PhoneNumber
