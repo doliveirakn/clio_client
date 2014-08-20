@@ -12,7 +12,7 @@ module ClioClient
     has_association :contact, ClioClient::Contact
     has_association :user,    ClioClient::User
     has_association :matter,  ClioClient::Matter
-    has_many_association(:resource, ClioClient::Resource,
+    has_association(:resource, ClioClient::Resource,
       :polymorphic => true,
       :accepted_types => %w(Bill Document Task Matter CalendarEntry))
 
