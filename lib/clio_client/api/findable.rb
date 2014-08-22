@@ -6,7 +6,7 @@ module ClioClient
         begin
           response = session.get("#{end_point_url}/#{id}")
           data_item(response[singular_resource])
-        rescue ClioClient::ResourceNotFound
+        rescue ClioClient::ResourceNotFound, ClioClient::UnknownResponse
           nil
         end
       end

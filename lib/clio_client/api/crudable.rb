@@ -7,16 +7,28 @@ module ClioClient
       end
 
       def create(params = {})
-        resource = params.is_a?(Array) ? create_plural(params) : create_singular(params)
+        begin
+          resource = params.is_a?(Array) ? create_plural(params) : create_singular(params)
+        rescue ClioClient::UnknownResponse
+          false
+        end
       end
 
       def update(id, params = {})
-        response = session.put("#{end_point_url}/#{id}", {singular_resource => params}.to_json)
-        data_item(response[singular_resource])        
+        begin
+          response = session.put("#{end_point_url}/#{id}", {singular_resource => params}.to_json)
+          data_item(response[singular_resource])        
+        rescue ClioClient::UnknownResponse
+          false
+        end
       end
 
       def destroy(id)
-        session.delete("#{end_point_url}/#{id}", false)
+        begin
+          session.delete("#{end_point_url}/#{id}", false)
+        rescue ClioClient::UnknownResponse
+          false
+        end
       end
 
       private

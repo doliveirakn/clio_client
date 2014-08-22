@@ -1,8 +1,9 @@
 module ClioClient
 
-  class Unauthorized < Exception; end 
-  class ResourceNotFound < Exception; end
-  class BadRequest < Exception; end
+  class Unauthorized < StandardError; end 
+  class ResourceNotFound < StandardError; end
+  class BadRequest < StandardError; end
+  class UnknownResponse < StandardError; end
   
   module Http
 
@@ -76,7 +77,7 @@ module ClioClient
       when Net::HTTPSeeOther
         res["Location"]
       else
-        raise "Unknown #{res.class} response."
+        raise UnknownResponse.new(res.body)
       end
     end
 
