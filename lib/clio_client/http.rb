@@ -64,15 +64,11 @@ module ClioClient
     end
 
     def parse_response(res, parse)
-      if res.body !~ /^\s*$/ && !res.body.nil?
-        body = parse ? JSON.parse(res.body) : res.body
-      end
-
       case res
       when Net::HTTPNotFound
         raise ClioClient::ResourceNotFound.new(parse_body(res.body)["message"])
       when Net::HTTPSuccess
-        parse ? parse_body(res.body)
+        parse ? parse_body(res.body) : res.body
       when Net::HTTPUnauthorized
         raise ClioClient::Unauthorized.new(parse_body(res.body)["message"])
       when Net::HTTPBadRequest
