@@ -70,21 +70,26 @@ module ClioClient
 
       case res
       when Net::HTTPNotFound
-        raise ClioClient::ResourceNotFound.new(body["message"])
+        raise ClioClient::ResourceNotFound.new(parse_body(res.body)["message"])
       when Net::HTTPSuccess
-        body
+        parse ? parse_body(res.body)
       when Net::HTTPUnauthorized
-        raise ClioClient::Unauthorized.new(body["message"])
+        raise ClioClient::Unauthorized.new(parse_body(res.body)["message"])
       when Net::HTTPBadRequest
-        raise ClioClient::BadRequest.new(body["message"])        
+        raise ClioClient::BadRequest.new(parse_body(res.body)["message"])
       when Net::HTTPSeeOther
         res["Location"]
       else
-        raise "Unknown #{res.class} response. #{body["message"]}"
+        raise "Unknown #{res.class} response."
       end
     end
 
     private
+    def parse_body(body)
+      if body !~ /^\s*$/ && !body.nil?
+        JSON.parse(body)
+      end
+    end
     def api_prefix; "/api/v2"; end
 
   end
