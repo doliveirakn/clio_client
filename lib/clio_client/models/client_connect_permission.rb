@@ -6,12 +6,14 @@ module ClioClient
                    updated_at:             {type: :datetime, readonly: true},
                    client_connect_user_id: {type: :int, readonly: true},
                    resource_type:          {type: :string},
-                   resource_id:            {type: :int}
                    )
 
     has_association :contact, ClioClient::Contact
     has_association :user,    ClioClient::User
     has_association :matter,  ClioClient::Matter
+    has_association(:resource, ClioClient::Resource,
+      :polymorphic => true,
+      :accepted_types => %w(Bill Document Task Matter CalendarEntry))
 
     private
 
