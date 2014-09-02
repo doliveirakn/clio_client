@@ -16,6 +16,9 @@ module ClioClient
                    co_counsel:        {type: :boolean, readonly: true}
                    )
 
+    has_association(:contact,            ClioClient::Contact, 
+                    :polymorphic => true, :accepted_types => %w(Person Company))
+
     def avatar
       api.avatar(id)
     end

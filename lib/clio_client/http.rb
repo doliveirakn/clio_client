@@ -49,7 +49,7 @@ module ClioClient
     end
 
     def make_api_request(req, uri, parse = true)
-      return nil if self.access_token.nil? || self.access_token.empty?
+      raise ClioClient::Unauthorized if self.access_token.nil? || self.access_token.empty?
       req.add_field("Authorization", "Bearer #{self.access_token}")
       make_request(req, uri, parse)
     end
