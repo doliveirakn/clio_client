@@ -12,7 +12,8 @@ module ClioClient
                    email:             {type: :string, readonly: true},
                    enabled:           {type: :boolean, readonly: true},
                    name:              {type: :string, readonly: true},
-                   clio_connect:      {type: :boolean, readonly: true}
+                   clio_connect:      {type: :boolean, readonly: true},
+                   co_counsel:        {type: :boolean, readonly: true}
                    )
 
     def avatar
