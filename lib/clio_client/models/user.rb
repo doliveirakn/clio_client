@@ -12,7 +12,8 @@ module ClioClient
                    email:             {type: :string, readonly: true},
                    enabled:           {type: :boolean, readonly: true},
                    name:              {type: :string, readonly: true},
-                   clio_connect:      {type: :boolean, readonly: true}
+                   clio_connect:      {type: :boolean, readonly: true},
+                   has_avatar:        {type: :boolean, readonly: true}
                    )
 
     has_association(:contact,            ClioClient::Contact, 
