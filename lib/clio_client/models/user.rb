@@ -13,7 +13,8 @@ module ClioClient
                    enabled:           {type: :boolean, readonly: true},
                    name:              {type: :string, readonly: true},
                    clio_connect:      {type: :boolean, readonly: true},
-                   has_avatar:        {type: :boolean, readonly: true}
+                   has_avatar:        {type: :boolean, readonly: true},
+                   co_counsel:        {type: :boolean, readonly: true}
                    )
 
     has_association(:contact,            ClioClient::Contact, 
