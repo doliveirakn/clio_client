@@ -11,6 +11,8 @@ module ClioClient
         accepted_types = %w(Person Company)
         if accepted_types.include? attributes["type"]
           ClioClient.const_get attributes["type"].intern
+        else
+          ClioClient::Contact
         end
       end
 

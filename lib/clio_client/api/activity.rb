@@ -11,6 +11,8 @@ module ClioClient
         accepted_types = %w(TimeEntry ExpenseEntry)
         if accepted_types.include? attributes["type"]
           ClioClient.const_get attributes["type"].intern
+        else
+          ClioClient::Activity
         end
       end
 
