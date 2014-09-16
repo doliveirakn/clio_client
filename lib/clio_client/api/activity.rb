@@ -9,8 +9,11 @@ module ClioClient
       private
       def data_klass(attributes)
         accepted_types = %w(TimeEntry ExpenseEntry)
-        if accepted_types.include? attributes["type"]
-          ClioClient.const_get attributes["type"].intern
+        type = attributes["type"] || attriutes[:type]
+        if accepted_types.include? type
+          ClioClient.const_get type
+        else
+          ClioClient::Activity
         end
       end
 
