@@ -71,7 +71,12 @@ module ClioClient
       when Net::HTTPSuccess
         parse ? parse_body(res.body) : res.body
       when Net::HTTPUnauthorized
-        raise ClioClient::Unauthorized.new(parse_body(res.body)["message"])
+        begin
+          message = parse_body(res.body)["message"]
+        rescue JSON::ParserError
+          message = res.body
+        end
+        raise ClioClient::Unauthorized.new(message)
       when Net::HTTPBadRequest
         raise ClioClient::BadRequest.new(parse_body(res.body)["message"])
       when Net::HTTPSeeOther
