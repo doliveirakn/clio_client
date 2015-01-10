@@ -1,5 +1,4 @@
 require 'clio_client'
-require 'debugger'
 
 require 'support/associated_resource'
 require 'support/test_resource'
