@@ -67,7 +67,7 @@ module ClioClient
     def parse_response(res, parse)
       case res
       when Net::HTTPNotFound
-        raise ClioClient::ResourceNotFound.new(parse_body(res.body)["message"])
+        raise ClioClient::ResourceNotFound.new(parse ? parse_body(res.body)["message"] : "")
       when Net::HTTPSuccess
         parse ? parse_body(res.body) : res.body
       when Net::HTTPUnauthorized
