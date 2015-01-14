@@ -8,7 +8,7 @@ module ClioClient
   module Http
 
     def base_uri(path, params = {})
-      uri = URI.parse(self.class.base_scope_url)
+      uri = URI.parse(self.base_scope_url)
       uri.path = path
       uri.query = URI.encode_www_form(params) if params.any?
       uri

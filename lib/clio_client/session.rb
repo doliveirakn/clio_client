@@ -1,26 +1,19 @@
 module ClioClient
 
   class Session
-
-    class << self
-      
-      attr_accessor :base_scope_url
-
-    end
-    
-    self.base_scope_url = "https://app.goclio.com"
+    BASE_SCOPE_URL = "https://app.goclio.com"
 
     include Http
     include Authorization
 
-    attr_accessor :access_token, :client_id, :client_secret
-    attr_accessor :end_points
+    attr_accessor :access_token, :client_id, :client_secret, :end_points, :base_scope_url
 
     def initialize(credentials = {})
       self.access_token = credentials[:access_token]
       self.client_id = credentials[:client_id]
       self.client_secret = credentials[:client_secret]
       self.end_points = {}
+      self.base_scope_url = credentials[:base_scope_url] || BASE_SCOPE_URL
     end
 
     { activities:                 ClioClient::Api::Activity,
@@ -45,11 +38,11 @@ module ClioClient
       timeline_events:            ClioClient::Api::TimelineEvent,
       timer:                      ClioClient::Api::Timer,
       users:                      ClioClient::Api::User
-    }.each_pair do |method, klass| 
+    }.each_pair do |method, klass|
       define_method method do
         end_points[method] ||= klass.new(self)
       end
-    end    
+    end
 
     def document_versions(document_id)
       end_points[:document_versions] ||= {}
