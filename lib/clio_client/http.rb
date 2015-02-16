@@ -4,6 +4,7 @@ module ClioClient
   class ResourceNotFound < StandardError; end
   class BadRequest < StandardError; end
   class UnknownResponse < StandardError; end
+  class Forbidden < StandardError; end
   
   module Http
 
@@ -81,6 +82,8 @@ module ClioClient
         raise ClioClient::BadRequest.new(parse_body(res.body)["message"])
       when Net::HTTPSeeOther
         res["Location"]
+      when Net::HTTPForbidden
+        raise ClioClient::Forbidden.new(res.body)
       else
         raise UnknownResponse.new(res.body)
       end
