@@ -3,6 +3,7 @@ module ClioClient
   class User < Resource
     
     set_attributes(id:                {type: :int, readonly: true},
+                   login_id:          {type: :int, readonly: true},
                    created_at:        {type: :datetime, readonly: true},
                    updated_at:        {type: :datetime, readonly: true},
                    subscription_plan: {type: :string, readonly: true},
