@@ -109,4 +109,8 @@ module ClioClient
 
   end
 
+  # This is eager load the session which means that we get our exceptions loaded as well
+  # eg. ClioClient::ResourceNotFound
+  Session
 end
+
