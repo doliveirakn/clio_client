@@ -40,7 +40,14 @@ module ClioClient
 
       def create_plural(params)
         response = session.post(end_point_url, {plural_resource => params}.to_json)
-        response[plural_resource].map { |resource| data_item(resource) }
+        response[plural_resource].map do |resource|
+          # Errors are presented inline when doing bulk create via the Clio API
+          if resource.key?("errors")
+            resource
+          else
+            data_item(resource)
+          end
+        end
       end
 
     end
