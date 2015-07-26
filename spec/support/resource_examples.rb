@@ -80,3 +80,22 @@ shared_examples "model initialization" do
 
 end
 
+shared_examples "typed resource" do
+
+  it "should accept type key as a string" do
+    verify_type_key( { "type" => type_value } )
+  end
+
+  it "should accept type key as a symbol" do
+    verify_type_key( { type: type_value } )
+
+  end
+
+  def verify_type_key(attributes)
+    record = subject.new(attributes)
+    expect(record).to be_kind_of type_klass
+    expect(record.type).to eql type_value
+  end
+
+end
+
