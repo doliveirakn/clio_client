@@ -9,7 +9,7 @@ module ClioClient
       private
       def data_klass(attributes)
         accepted_types = %w(Person Company)
-        type = attributes["type"] || attriutes[:type]
+        type = attributes["type"] || attributes[:type]
         if accepted_types.include? type
           ClioClient.const_get type
         else
