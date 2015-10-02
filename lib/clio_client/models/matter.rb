@@ -24,6 +24,7 @@ module ClioClient
     has_association(:client,            ClioClient::Contact, 
                     :polymorphic => true, :accepted_types => %w(Person Company))
     has_association :responsible_attorney, ClioClient::User
+    has_association :originating_attorney, ClioClient::User
     has_association :practice_area,        ClioClient::PracticeArea
     has_many_association(:custom_field_values, ClioClient::CustomFieldValue, 
         :polymorphic => true, 
