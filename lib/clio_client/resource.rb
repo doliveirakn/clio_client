@@ -13,7 +13,7 @@ module ClioClient
       end * ", "
       "#{super}(#{attr_list})"
     end
-    
+
     def inspect
       attr_list = self.class.attributes.inject([]) do |a, (attr, opts)|
         if has_attribute?(attr)
@@ -21,7 +21,7 @@ module ClioClient
         else
           a
         end
-      end * ", "      
+      end * ", "
       "#<#{self.class} #{attr_list}>"
     end
 
@@ -50,13 +50,13 @@ module ClioClient
           attr_reader name
           define_method "#{name}=" do |value|
             if options[:readonly] && !instance_variable_get("@#{name}").nil?
-              raise AttributeReadOnly 
+              raise AttributeReadOnly
             end
             write_attribute("#{name}", convert_attribute(value, options))
           end
         end
       end
-      
+
       def inherited(subclass)
         if !self.attributes.nil?
           subclass.attributes = self.attributes
@@ -76,14 +76,14 @@ module ClioClient
             obj = klass.new(attributes, session)
           end
           write_attribute("#{name}", obj)
-        end      
+        end
       end
 
       def has_many_association(name, klass, options = {})
         attr_reader name
         self.attributes[name.intern] = {type: :has_many_association}
         define_method "#{name}=" do |arr|
-          many = arr.collect do |attributes| 
+          many = arr.collect do |attributes|
             if options[:polymorphic]
               obj = polymorphic_object(attributes, options[:accepted_types])
               obj ||= klass.new(attributes, session)
@@ -92,11 +92,11 @@ module ClioClient
             end
           end
           write_attribute(name, many)
-        end      
+        end
       end
-      
+
     end
-      
+
     def ==(o)
       self.class == o.class && !self.id.nil? && self.id != "" && self.id == o.id
     end
@@ -110,7 +110,7 @@ module ClioClient
     def save
       if self.id.nil?
         saved_item = api.create(self.to_params)
-        self.id = saved_item && saved_item.id
+        self.id = saved_item.id if saved_item
         self
       else
         api.update(self.id, self.to_params)
@@ -119,7 +119,7 @@ module ClioClient
     end
 
     def reload
-      raise ResourceNotSaved if self.id.nil?      
+      raise ResourceNotSaved if self.id.nil?
       api.find(self.id)
     end
 
@@ -148,7 +148,7 @@ module ClioClient
       instance_variable_defined?("@#{attr}")
     end
 
-    def paramify(val)      
+    def paramify(val)
       if val.kind_of? ClioClient::Resource
         val.to_params
       elsif val.kind_of? Array
@@ -168,15 +168,15 @@ module ClioClient
         val.kind_of?(Date) ? val : Date.parse(val)
       when :decimal
         val.to_f
-      when :boolean 
+      when :boolean
         val == true || val == "true"
-      when :datetime 
+      when :datetime
         val.kind_of?(DateTime) ? val : DateTime.parse(val)
-      when :datetime 
+      when :datetime
         val.kind_of?(Time) ? val : Time.parse(val)
-      when :foreign_key 
+      when :foreign_key
         (val == "" || val.nil?) ? nil : val.to_i
-      else 
+      else
         val
       end
     end
