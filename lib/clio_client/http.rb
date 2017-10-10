@@ -5,6 +5,7 @@ module ClioClient
   class BadRequest < StandardError; end
   class UnknownResponse < StandardError; end
   class Forbidden < StandardError; end
+  class Conflict < StandardError; end
 
   module Http
 
@@ -84,6 +85,8 @@ module ClioClient
         res["Location"]
       when Net::HTTPForbidden
         raise ClioClient::Forbidden.new(res.body)
+      when Net::HTTPConflict
+        raise ClioClient::Conflict.new(res.body)
       else
         raise UnknownResponse.new(res.body)
       end
