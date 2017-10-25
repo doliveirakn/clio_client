@@ -7,7 +7,7 @@ describe ClioClient::Resource do
   let(:session) { double("ClioClient::Session") }
   let(:api) { double("ClioClient::Api::Base") }
   before { subject.stub(:api).and_return(api) }
-  
+
   describe "an integer field" do
     let(:params) { {"int" => "1"} }
 
@@ -69,6 +69,13 @@ describe ClioClient::Resource do
         api.should_receive(:create).with(to_params)
         subject.save
       end
+      context "and api returns false" do
+        it "should return the resource and leave the id blank" do
+          allow(api).to receive(:create) { false }
+          subject.save
+          expect(subject.id).to eq nil
+        end
+      end
     end
     context "when the record has an id" do
       it "makes a update call" do
@@ -76,7 +83,6 @@ describe ClioClient::Resource do
         subject.save
       end
     end
-
   end
 
   describe "#reload" do

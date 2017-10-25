@@ -1,11 +1,12 @@
 module ClioClient
 
-  class Unauthorized < StandardError; end 
+  class Unauthorized < StandardError; end
   class ResourceNotFound < StandardError; end
   class BadRequest < StandardError; end
   class UnknownResponse < StandardError; end
   class Forbidden < StandardError; end
-  
+  class Conflict < StandardError; end
+
   module Http
 
     def base_uri(path, params = {})
@@ -22,7 +23,7 @@ module ClioClient
     end
 
     def put(path, body = "", parse=true)
-      uri = base_uri("#{api_prefix}/#{path}")        
+      uri = base_uri("#{api_prefix}/#{path}")
       req = Net::HTTP::Put.new(uri.request_uri)
       req.body = body
       req.add_field("Content-Type", "application/json")
@@ -30,13 +31,13 @@ module ClioClient
     end
 
     def multipart_post(path, params, parse = true)
-      uri = base_uri("#{api_prefix}/#{path}")        
+      uri = base_uri("#{api_prefix}/#{path}")
       req = Net::HTTP::Post::Multipart.new(uri.request_uri, params)
       make_api_request(req, uri, parse)
     end
 
     def post(path, body ="", parse = true)
-      uri = base_uri("#{api_prefix}/#{path}")        
+      uri = base_uri("#{api_prefix}/#{path}")
       req = Net::HTTP::Post.new(uri.request_uri)
       req.body = body
       req.add_field("Content-Type", "application/json")
@@ -84,6 +85,8 @@ module ClioClient
         res["Location"]
       when Net::HTTPForbidden
         raise ClioClient::Forbidden.new(res.body)
+      when Net::HTTPConflict
+        raise ClioClient::Conflict.new(res.body)
       else
         raise UnknownResponse.new(res.body)
       end
@@ -98,5 +101,5 @@ module ClioClient
     def api_prefix; "/api/v2"; end
 
   end
-  
+
 end
