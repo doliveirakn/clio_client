@@ -64,7 +64,8 @@ module ClioClient
         http.request(req)
       end
       
-      if retry_on_unauthorized and !self.refresh_token.blank?
+      #retry if we are NOT requesting a refresh token or if refresh_token is blank
+      if retry_on_unauthorized and !self.refresh_token.blank? and uri.path != "/oauth/token"
         begin
           parse_response(res, parse)
         rescue ClioClient::Unauthorized => ex
