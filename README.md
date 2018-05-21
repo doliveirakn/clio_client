@@ -12,7 +12,7 @@ Please direct any inquiries to the appropriate channel:
 
 We look forward to seeing your developments and creating successful relationships!
 
-More information about the API can be found at http://api-docs.goclio.com/v2/index.html
+More information about the API can be found at https://app.clio.com/api/v4/documentation
 
 ## Installation
 
