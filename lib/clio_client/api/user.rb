@@ -10,9 +10,9 @@ module ClioClient
       end
 
       def who_am_i
-        resp = session.get("#{end_point_url}/who_am_i")
-        [ClioClient::Account.new(resp["account"], session), 
-         ClioClient::User.new(resp["user"], session)]
+        resp = session.get("#{end_point_url}/who_am_i",{fields: "id,name,email,first_name,last_name,account{id,etag,name}"})
+        [ClioClient::Account.new(resp[singular_resource]["account"], session), 
+         ClioClient::User.new(resp[singular_resource], session)]
       end
       
 

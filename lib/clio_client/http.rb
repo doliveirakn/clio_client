@@ -70,7 +70,12 @@ module ClioClient
           parse_response(res, parse)
         rescue ClioClient::Unauthorized => ex
           #let's see if we can refresh_access_token and try again
-          self.refresh_access_token
+          begin
+            self.refresh_access_token
+          rescue
+            raise ex
+          end
+          
           req["Authorization"] = "Bearer #{self.access_token}"
           self.make_request(req, uri, parse, false)
         end  
