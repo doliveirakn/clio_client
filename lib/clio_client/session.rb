@@ -6,12 +6,14 @@ module ClioClient
     include Http
     include Authorization
 
-    attr_accessor :access_token, :client_id, :client_secret, :end_points, :base_scope_url
+    attr_accessor :access_token, :client_id, :client_secret, :end_points, :base_scope_url, :refresh_token, :access_token_refreshed
 
     def initialize(credentials = {})
       self.access_token = credentials[:access_token]
+      self.refresh_token = credentials[:refresh_token]
       self.client_id = credentials[:client_id]
       self.client_secret = credentials[:client_secret]
+      self.access_token_refreshed = false
       self.end_points = {}
       self.base_scope_url = credentials[:base_scope_url] || BASE_SCOPE_URL
     end

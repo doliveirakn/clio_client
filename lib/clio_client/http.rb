@@ -55,14 +55,28 @@ module ClioClient
       make_request(req, uri, parse)
     end
 
-    def make_request(req, uri, parse = true)
+    def make_request(req, uri, parse = true, retry_on_unauthorized = true)
       req.add_field("Accept", "text/json")
       n = Net::HTTP.new(uri.host, uri.port)
       n.use_ssl = uri.scheme == 'https'
+      
       res = n.start do |http|
         http.request(req)
       end
-      parse_response(res, parse)
+      
+      if retry_on_unauthorized and !self.refresh_token.blank?
+        begin
+          parse_response(res, parse)
+        rescue ClioClient::Unauthorized => ex
+          #let's see if we can refresh_access_token and try again
+          self.refresh_access_token
+          req["Authorization"] = "Bearer #{self.access_token}"
+          self.make_request(req, uri, parse, false)
+        end  
+      else
+        parse_response(res, parse)
+      end
+      
     end
 
     def parse_response(res, parse)

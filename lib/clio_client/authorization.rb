@@ -24,6 +24,7 @@ module ClioClient
       req.set_form_data params
       credentials = make_request(req, uri)
       self.access_token = credentials["access_token"]
+      self.refresh_token = credentials["refresh_token"]
       credentials
     end
 
@@ -34,6 +35,22 @@ module ClioClient
       rescue ClioClient::Unauthorized
         false
       end
+    end
+    
+    def refresh_access_token
+      params = { 
+        grant_type: "refresh_token",
+        client_id: self.client_id,
+        client_secret: self.client_secret,
+        refresh_token: self.refresh_token
+      }
+      uri = base_uri("/oauth/token")
+      req = Net::HTTP::Post.new(uri.request_uri)
+      req.set_form_data params
+      credentials = make_request(req, uri)
+      self.access_token = credentials["access_token"]
+      self.access_token_refreshed = true
+      credentials
     end
 
     
