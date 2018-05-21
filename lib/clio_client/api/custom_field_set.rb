@@ -11,8 +11,8 @@ module ClioClient
       end
 
       def end_point_url;     'custom_field_sets';  end
-      def plural_resource;   'custom_field_sets';  end
-      def singular_resource; 'custom_field_set';   end
+      def plural_resource;   'data';  end
+      def singular_resource; 'data';   end
 
     end
   end

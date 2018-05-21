@@ -12,8 +12,8 @@ module ClioClient
       end
 
       def end_point_url;     'client_connect_permissions';  end
-      def plural_resource;   'client_connect_permissions';  end
-      def singular_resource; 'client_connect_permission';   end
+      def plural_resource;   'data';  end
+      def singular_resource; 'data';   end
 
     end
   end

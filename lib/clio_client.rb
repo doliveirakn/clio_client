@@ -2,7 +2,6 @@ require 'net/http'
 require 'json'
 
 module ClioClient
-  
   { :Session =>       'session',
     :Base =>          'base',
     :Resource =>      'resource',

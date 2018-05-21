@@ -109,7 +109,7 @@ module ClioClient
         JSON.parse(body)
       end
     end
-    def api_prefix; "/api/v2"; end
+    def api_prefix; "/api/v4"; end
 
   end
   

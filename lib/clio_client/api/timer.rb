@@ -23,8 +23,8 @@ module ClioClient
       end
 
       def end_point_url;     'timer';  end
-      def plural_resource;   'timer';  end
-      def singular_resource; 'timer';   end
+      def plural_resource;   'data';  end
+      def singular_resource; 'data';   end
 
     end
   end

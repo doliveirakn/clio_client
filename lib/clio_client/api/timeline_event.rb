@@ -20,8 +20,8 @@ module ClioClient
       end
 
       def end_point_url;     'timeline_events';  end
-      def plural_resource;   'timeline_events';  end
-      def singular_resource; 'timeline_event';   end
+      def plural_resource;   'data';  end
+      def singular_resource; 'data';   end
 
     end
   end

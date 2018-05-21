@@ -12,8 +12,8 @@ module ClioClient
       end
 
       def end_point_url;     'documents';  end
-      def plural_resource;   'documents';  end
-      def singular_resource; 'document';   end
+      def plural_resource;   'data';  end
+      def singular_resource; 'data';   end
 
     end
   end

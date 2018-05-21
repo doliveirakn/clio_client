@@ -1,7 +1,7 @@
 module ClioClient
 
   class Session
-    BASE_SCOPE_URL = "https://app.goclio.com"
+    BASE_SCOPE_URL = "https://app.clio.com"
 
     include Http
     include Authorization

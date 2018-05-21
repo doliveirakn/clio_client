@@ -7,7 +7,7 @@ module ClioClient
       include ClioClient::Api::Crudable
 
       def download(id, params = {})
-        session.get("#{end_point_url}/#{id}/download", params)
+        session.get("documents/#{document_id}/download", params)
       end
 
       private
@@ -21,8 +21,8 @@ module ClioClient
       end
 
       def end_point_url;     "documents/#{document_id}/document_versions";  end
-      def plural_resource;   'document_versions';  end
-      def singular_resource; 'document_version';   end
+      def plural_resource;   'data';  end
+      def singular_resource; 'data';   end
 
     end
   end
