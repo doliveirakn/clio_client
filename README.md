@@ -1,6 +1,6 @@
 # ClioClient
 
-This is an API client for Clio V2.
+This is an API client for Clio V4.
 
 As we are all aware, the importance of API-level developments is paramount in the cloud-based software industry. Clio’s open API allows you to create valuable add-ons for your clients, and in turn, construct profitable revenue streams for your business.
 
