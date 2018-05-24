@@ -32,7 +32,8 @@ module ClioClient
       begin
         get("/users/who_am_i")
         true
-      rescue ClioClient::Unauthorized
+      #rescue ClioClient::Unauthorized, ClioClient::Forbidden
+      rescue => ex
         false
       end
     end
