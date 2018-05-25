@@ -5,6 +5,12 @@ module ClioClient
       include ClioClient::Api::Listable
       include ClioClient::Api::Findable
       include ClioClient::Api::Crudable
+      
+      def upload(params = {})
+        #response = session.post(end_point_url + "?fields=id,latest_document_version{uuid,put_url,put_headers}", {singular_resource => params}.to_json)
+        response = session.post(end_point_url, {singular_resource => params}.to_json, true, {fields: "id,latest_document_version{uuid,put_url,put_headers}"})
+        data_item(response[singular_resource])
+      end
 
       private
       def data_klass(*args)

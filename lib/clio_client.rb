@@ -26,6 +26,7 @@ module ClioClient
     :CustomFieldSet =>          'custom_field_set',
     :CustomField =>             'custom_field',
     :DocumentCategory =>        'document_category',
+    :DocumentUpload =>          'document_upload',
     :DocumentVersion =>         'document_version',
     :Document =>                'document',
     :ExpenseEntry =>            'expense_entry',
