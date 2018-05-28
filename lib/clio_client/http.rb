@@ -31,17 +31,12 @@ module ClioClient
       
       
       #file upload is done against an other server, we cannot use make_request
-      #make_request(req, uri, parse, false)
-      
       n = Net::HTTP.new(uri.host, uri.port)
       n.use_ssl = uri.scheme == 'https'
       
       res = n.start do |http|
         http.request(req)
       end
-      
-      Rails.logger.ap "after put_file_upload"
-      Rails.logger.ap res.body
     end
 
     def put(path, body = "", parse=true)
@@ -86,8 +81,9 @@ module ClioClient
       res = n.start do |http|
         http.request(req)
       end
-      #Rails.logger.ap req
+      Rails.logger.ap req.body
       Rails.logger.ap res.body
+      Rails.logger.ap res.inspect
       #retry if we are NOT requesting a refresh token or if refresh_token is blank
       if retry_on_unauthorized and !self.refresh_token.blank? and uri.path != "/oauth/token"
         begin
@@ -122,6 +118,8 @@ module ClioClient
           message = res.body
         end
         raise ClioClient::Unauthorized.new(message)
+      when Net::HTTPUnprocessableEntity
+        raise ClioClient::BadRequest.new(parse_body(res.body)["message"])
       when Net::HTTPBadRequest
         raise ClioClient::BadRequest.new(parse_body(res.body)["message"])
       when Net::HTTPSeeOther

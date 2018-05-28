@@ -31,6 +31,7 @@ module ClioClient
       document_versions:          ClioClient::Api::DocumentVersion,
       documents:                  ClioClient::Api::Document,
       document_categories:        ClioClient::Api::DocumentCategory,
+      folders:                    ClioClient::Api::Folder,
       groups:                     ClioClient::Api::Group,
       matters:                    ClioClient::Api::Matter,
       notes:                      ClioClient::Api::Note,

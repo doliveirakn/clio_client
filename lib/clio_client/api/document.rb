@@ -7,7 +7,7 @@ module ClioClient
       include ClioClient::Api::Crudable
       
       def upload(file, params = {})
-        file = File.read(file)
+        #file = File.read(file) if file.is_a? String
         #response = session.post(end_point_url + "?fields=id,latest_document_version{uuid,put_url,put_headers}", {singular_resource => params}.to_json)
         response = session.post(end_point_url, {singular_resource => params}.to_json, {fields: "id,latest_document_version{uuid,put_url,put_headers}"})
         uploaded_doc = data_item(response[singular_resource])
