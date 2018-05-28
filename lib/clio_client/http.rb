@@ -20,6 +20,29 @@ module ClioClient
       req = Net::HTTP::Get.new(uri.request_uri)
       make_api_request(req, uri, parse)
     end
+    
+    def put_file_upload(uri_str, body = "", headers = {})
+      uri = URI.parse(uri_str)
+      req = Net::HTTP::Put.new(uri.request_uri)
+      req.body = body
+      headers.each do |k,v|
+        req.add_field(k.to_s, v)
+      end
+      
+      
+      #file upload is done against an other server, we cannot use make_request
+      #make_request(req, uri, parse, false)
+      
+      n = Net::HTTP.new(uri.host, uri.port)
+      n.use_ssl = uri.scheme == 'https'
+      
+      res = n.start do |http|
+        http.request(req)
+      end
+      
+      Rails.logger.ap "after put_file_upload"
+      Rails.logger.ap res.body
+    end
 
     def put(path, body = "", parse=true)
       uri = base_uri("#{api_prefix}/#{path}")        
@@ -35,8 +58,8 @@ module ClioClient
       make_api_request(req, uri, parse)
     end
 
-    def post(path, body ="", parse = true)
-      uri = base_uri("#{api_prefix}/#{path}")        
+    def post(path, body ="", params = {}, parse = true)
+      uri = base_uri("#{api_prefix}/#{path}", params)        
       req = Net::HTTP::Post.new(uri.request_uri)
       req.body = body
       req.add_field("Content-Type", "application/json")
@@ -63,7 +86,8 @@ module ClioClient
       res = n.start do |http|
         http.request(req)
       end
-      
+      #Rails.logger.ap req
+      Rails.logger.ap res.body
       #retry if we are NOT requesting a refresh token or if refresh_token is blank
       if retry_on_unauthorized and !self.refresh_token.blank? and uri.path != "/oauth/token"
         begin

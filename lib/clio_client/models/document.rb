@@ -16,7 +16,7 @@ module ClioClient
     has_association :matter, ClioClient::Matter
     has_association :user,   ClioClient::User
     has_association :document_category,   ClioClient::DocumentCategory
-    has_association :latest_document_version, ClioClient::DocumentUpload
+    has_association :latest_document_version, ClioClient::DocumentUpload 
     has_many_association :document_versions, ClioClient::DocumentVersion
 
     def document_versions=(arr)

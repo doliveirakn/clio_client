@@ -6,10 +6,21 @@ module ClioClient
       include ClioClient::Api::Findable
       include ClioClient::Api::Crudable
       
-      def upload(params = {})
+      def upload(file, params = {})
+        file = File.read(file)
         #response = session.post(end_point_url + "?fields=id,latest_document_version{uuid,put_url,put_headers}", {singular_resource => params}.to_json)
-        response = session.post(end_point_url, {singular_resource => params}.to_json, true, {fields: "id,latest_document_version{uuid,put_url,put_headers}"})
-        data_item(response[singular_resource])
+        response = session.post(end_point_url, {singular_resource => params}.to_json, {fields: "id,latest_document_version{uuid,put_url,put_headers}"})
+        uploaded_doc = data_item(response[singular_resource])
+        begin
+          if uploaded_doc.latest_document_version.present?
+            uploaded_doc.latest_document_version.upload(uploaded_doc.id, file)
+          end
+        rescue => ex
+          self.destroy(uploaded_doc.id)
+          raise ex
+        end
+        
+        uploaded_doc
       end
 
       private
