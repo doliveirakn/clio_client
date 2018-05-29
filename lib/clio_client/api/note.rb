@@ -14,8 +14,8 @@ module ClioClient
       end
 
       def end_point_url;     'notes';  end
-      def plural_resource;   'notes';  end
-      def singular_resource; 'note';   end
+      def plural_resource;   'data';  end
+      def singular_resource; 'data';   end
 
     end
   end

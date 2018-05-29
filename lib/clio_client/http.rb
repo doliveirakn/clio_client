@@ -20,6 +20,24 @@ module ClioClient
       req = Net::HTTP::Get.new(uri.request_uri)
       make_api_request(req, uri, parse)
     end
+    
+    def put_file_upload(uri_str, body = "", headers = {})
+      uri = URI.parse(uri_str)
+      req = Net::HTTP::Put.new(uri.request_uri)
+      req.body = body
+      headers.each do |k,v|
+        req.add_field(k.to_s, v)
+      end
+      
+      
+      #file upload is done against an other server, we cannot use make_request
+      n = Net::HTTP.new(uri.host, uri.port)
+      n.use_ssl = uri.scheme == 'https'
+      
+      res = n.start do |http|
+        http.request(req)
+      end
+    end
 
     def put(path, body = "", parse=true)
       uri = base_uri("#{api_prefix}/#{path}")        
@@ -35,8 +53,8 @@ module ClioClient
       make_api_request(req, uri, parse)
     end
 
-    def post(path, body ="", parse = true)
-      uri = base_uri("#{api_prefix}/#{path}")        
+    def post(path, body ="", params = {}, parse = true)
+      uri = base_uri("#{api_prefix}/#{path}", params)        
       req = Net::HTTP::Post.new(uri.request_uri)
       req.body = body
       req.add_field("Content-Type", "application/json")
@@ -55,14 +73,34 @@ module ClioClient
       make_request(req, uri, parse)
     end
 
-    def make_request(req, uri, parse = true)
+    def make_request(req, uri, parse = true, retry_on_unauthorized = true)
       req.add_field("Accept", "text/json")
       n = Net::HTTP.new(uri.host, uri.port)
       n.use_ssl = uri.scheme == 'https'
+      
       res = n.start do |http|
         http.request(req)
       end
-      parse_response(res, parse)
+      
+      #retry if we are NOT requesting a refresh token or if refresh_token is blank
+      if retry_on_unauthorized and !self.refresh_token.blank? and uri.path != "/oauth/token"
+        begin
+          parse_response(res, parse)
+        rescue ClioClient::Unauthorized => ex
+          #let's see if we can refresh_access_token and try again
+          begin
+            self.refresh_access_token
+          rescue
+            raise ex
+          end
+          
+          req["Authorization"] = "Bearer #{self.access_token}"
+          self.make_request(req, uri, parse, false)
+        end  
+      else
+        parse_response(res, parse)
+      end
+      
     end
 
     def parse_response(res, parse)
@@ -78,6 +116,8 @@ module ClioClient
           message = res.body
         end
         raise ClioClient::Unauthorized.new(message)
+      when Net::HTTPUnprocessableEntity
+        raise ClioClient::BadRequest.new(parse_body(res.body)["message"])
       when Net::HTTPBadRequest
         raise ClioClient::BadRequest.new(parse_body(res.body)["message"])
       when Net::HTTPSeeOther
@@ -95,7 +135,7 @@ module ClioClient
         JSON.parse(body)
       end
     end
-    def api_prefix; "/api/v2"; end
+    def api_prefix; "/api/v4"; end
 
   end
   

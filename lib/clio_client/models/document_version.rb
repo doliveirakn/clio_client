@@ -9,7 +9,8 @@ module ClioClient
                    size:          {type: :int, readonly: true},
                    content_type:  {type: :string, readonly: true},
                    last_modified_at: {type: :datetime},
-                   filename:      {type: :string}
+                   filename:      {type: :string},
+                   fully_uploaded: {type: :boolean, readonly: true},
                    )
 
     has_many_association :document_version_notes,           ClioClient::DocumentVersionNote

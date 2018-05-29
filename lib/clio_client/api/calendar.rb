@@ -11,8 +11,8 @@ module ClioClient
       end
 
       def end_point_url;     'calendars';  end
-      def plural_resource;   'calendars';   end
-      def singular_resource; 'calendar';  end
+      def plural_resource;   'data';   end
+      def singular_resource; 'data';  end
 
     end
   end

@@ -2,7 +2,6 @@ require 'net/http'
 require 'json'
 
 module ClioClient
-  
   { :Session =>       'session',
     :Base =>          'base',
     :Resource =>      'resource',
@@ -27,10 +26,12 @@ module ClioClient
     :CustomFieldSet =>          'custom_field_set',
     :CustomField =>             'custom_field',
     :DocumentCategory =>        'document_category',
+    :DocumentUpload =>          'document_upload',
     :DocumentVersion =>         'document_version',
     :Document =>                'document',
     :ExpenseEntry =>            'expense_entry',
     :EmailCommunication =>      'email_communication',
+    :Folder =>                  'folder',
     :Group =>                   'group',
     :Matter =>                  'matter',
     :Note =>                    'note',
@@ -90,6 +91,7 @@ module ClioClient
       :DocumentCategory =>        'document_category',
       :DocumentVersion =>         'document_version',
       :Document =>                'document',
+      :Folder =>                  'folder',
       :Group =>                   'group',
       :Matter =>                  'matter',
       :Note =>                    'note',
