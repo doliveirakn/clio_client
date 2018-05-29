@@ -81,9 +81,7 @@ module ClioClient
       res = n.start do |http|
         http.request(req)
       end
-      Rails.logger.ap req.body
-      Rails.logger.ap res.body
-      Rails.logger.ap res.inspect
+      
       #retry if we are NOT requesting a refresh token or if refresh_token is blank
       if retry_on_unauthorized and !self.refresh_token.blank? and uri.path != "/oauth/token"
         begin

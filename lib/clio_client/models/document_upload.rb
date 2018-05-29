@@ -19,7 +19,7 @@ module ClioClient
       self.fully_uploaded = true
       
       api.update(doc_id, {uuid: self.uuid, fully_uploaded: fully_uploaded})
-      Rails.logger.ap self
+
     end
     
     private
